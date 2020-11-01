@@ -3,9 +3,36 @@
 ## Docker
 
 ```Bash
-docker build -t hello-node .
-docker run -it -p 3000:3000 -v $PWD:/usr/src/app hello-node bash
-npm start # http://localhost:3000
+docker-compose build
+docker-compose up # http://localhost:3000
+
+# Start container sesssion
+docker exec -it <container name> bash
+```
+
+## DB
+
+Inside db container:
+
+```Bash
+psql -U postgres
+
+\l # list of all DB
+\c hello # connect to "hello" DB
+\dt # Show databes tables
+```
+
+```SQL
+-- After connecting to "hello" DB:
+
+CREATE TABLE todo(
+  id SERIAL PRIMARY KEY,
+  description VARCHAR(255)
+);
+
+INSERT INTO todo (description) VALUES ('Hello, World!');
+
+SELECT * FROM todo;
 ```
 
 ## TODOs
