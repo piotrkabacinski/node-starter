@@ -3,9 +3,19 @@
 ## Docker
 
 ```Bash
-docker build -t hello-node .
-docker run -it -p 3000:3000 -v $PWD:/usr/src/app hello-node bash
-npm start # http://localhost:3000
+docker-compose build
+docker-compose up # http://localhost:3000
+
+# Start container sesssion
+docker exec -it <container name> bash
+```
+
+## DB
+
+Within db container:
+
+```
+psql -U postgres
 ```
 
 ## TODOs
