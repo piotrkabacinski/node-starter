@@ -37,7 +37,11 @@ SELECT * FROM todo;
 
 ## TODOs
 
-- Redis
-- Pino
-- Kolejki (bullmq)
-- Fastify
+- [x] TypeScript
+- [x] Docker
+- [x] Postgress DB
+- [x] TypeOrm
+- [ ] OpenAPI
+- [ ] Tests
+- [ ] Redis
+- [ ] 'Todo app' example
