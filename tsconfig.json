@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "commonjs",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
@@ -11,7 +12,7 @@
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types"]
   },
-  "lib": ["es2015"],
+  "lib": ["es2019"],
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

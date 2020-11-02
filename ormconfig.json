@@ -4,5 +4,16 @@
   "port": 5432,
   "username": "postgres",
   "password": "postgres1",
-  "database": "hello"
+  "database": "hello",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+     "dist/db/entity/**/*.js"
+  ],
+  "migrations": [
+     "dist/db/migration/**/*.js"
+  ],
+  "subscribers": [
+     "dist/subscriber/**/*.js"
+  ]
 }

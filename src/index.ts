@@ -1,8 +1,26 @@
 import express from "express";
-import dbClient from "./db";
+import { getCustomRepository } from "typeorm";
+import connection from "./db/db";
+import { TodosRepository } from "./db/repository/TodoRepository";
 
 const app = express();
 const port = 3000;
+
+app.get("/typeorm", async (_, res) => {
+  res.set("Content-Type", "application/json");
+
+  await connection();
+
+  const todosRepository = getCustomRepository(TodosRepository);
+
+  await todosRepository.addTodo();
+  const todos = await todosRepository.getTodos();
+
+  res.send({
+    todos,
+    date_time: new Date().toISOString(),
+  });
+});
 
 app.get("/", async (_, res) => {
   res.set("Content-Type", "application/json");
@@ -10,25 +28,6 @@ app.get("/", async (_, res) => {
   res.send({
     date_time: new Date().toISOString(),
   });
-});
-
-app.get("/db", async (_, res) => {
-  res.set("Content-Type", "application/json");
-
-  try {
-    await dbClient.connect();
-
-    dbClient.query("SELECT * FROM todo", (_, { rows }) => {
-      res.send({
-        rows,
-      });
-
-      dbClient.end();
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500);
-  }
 });
 
 app.listen(port, () => {
