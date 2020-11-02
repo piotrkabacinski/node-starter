@@ -3,6 +3,7 @@
 ## Docker
 
 ```Bash
+cp .env.template .env
 docker-compose build
 docker-compose up # http://localhost:3000
 
@@ -12,27 +13,14 @@ docker exec -it <container name> bash
 
 ## DB
 
-Inside db container:
+Inside DB container:
 
 ```Bash
 psql -U postgres
 
 \l # list of all DB
 \c hello # connect to "hello" DB
-\dt # Show databes tables
-```
-
-```SQL
--- After connecting to "hello" DB:
-
-CREATE TABLE todo(
-  id SERIAL PRIMARY KEY,
-  description VARCHAR(255)
-);
-
-INSERT INTO todo (description) VALUES ('Hello, World!');
-
-SELECT * FROM todo;
+\dt # Show data bases tables
 ```
 
 ## TODOs
