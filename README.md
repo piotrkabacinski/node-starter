@@ -4,11 +4,15 @@
 
 ```Bash
 cp .env.template .env
+
+npm i
+
 docker-compose build
 docker-compose up # http://localhost:3000
 
-# Start container sesssion
-docker exec -it <container name> bash
+# To start bash session inside container:
+docker ps
+docker exec -it <container id> bash
 ```
 
 ## DB
