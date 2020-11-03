@@ -20,7 +20,7 @@ docker exec -it <container id> bash
 Inside DB container:
 
 ```Bash
-psql -U postgres
+psql -U <user name>
 
 \l # list of all DB
 \c hello # connect to "hello" DB
@@ -37,3 +37,4 @@ psql -U postgres
 - [ ] Tests
 - [ ] Redis
 - [ ] 'Todo app' example
+- [ ] Heroku deployment

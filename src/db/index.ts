@@ -7,10 +7,10 @@ export default async function dbConnect() {
   Object.assign(connectionOptions, {
     type: 'postgres',
     username: process.env.POSTGRES_USER,
-    host: process.env.POSRGRES_HOST,
+    host: 'db',
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    port: process.env.POSTGRES_PORT,
+    port: 5432,
   });
 
   return await createConnection(connectionOptions);
