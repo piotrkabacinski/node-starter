@@ -1,12 +1,11 @@
 import { Router } from "express";
-import getTodosController from "../controllers/getTodosController";
+import { getTodos, addTodo } from "../controllers/todos";
 
-function rootRouter() {
+export default (() => {
   const router = Router();
 
-  router.get("/", getTodosController);
+  router.get("/", getTodos);
+  router.post("/", addTodo);
 
   return router;
-}
-
-export default rootRouter();
+})();

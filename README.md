@@ -8,11 +8,11 @@ cp .env.template .env
 npm i
 
 docker-compose build
-docker-compose up # http://localhost:3000
+docker-compose up # http://localhost:4000
 
-# To start bash session inside container:
+# To start shell session inside container:
 docker ps
-docker exec -it <container id> bash
+docker exec -it <container id> sh
 ```
 
 ## DB

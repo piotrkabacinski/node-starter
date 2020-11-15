@@ -1,12 +1,10 @@
 import { Router } from "express";
-import rootController from "../controllers/rootController";
+import rootController from "../controllers/root";
 
-function rootRouter() {
+export default (() => {
   const router = Router();
 
   router.get("/", rootController);
 
   return router;
-}
-
-export default rootRouter();
+})();
