@@ -6,6 +6,8 @@
   "scripts": {
     "start": "nodemon",
     "docker:install": "docker-compose run --rm app npm i",
+    "lint": "tslint ./src/**/*.ts",
+    "lint:fix": "tslint --fix ./src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +33,7 @@
     "@types/pg": "^7.14.5",
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3"
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.5"
   }
 }

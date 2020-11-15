@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTodos, addTodo } from "../controllers/todos";
+import { addTodo, getTodos } from "../controllers/todos";
 
 export default (() => {
   const router = Router();

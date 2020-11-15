@@ -32,6 +32,7 @@ envConfig();
   app.use("/todos", todosRouter);
 
   app.listen(port, () => {
+    // tslint:disable: no-console
     console.log(`Server's up! http://localhost:${port} 🚀`);
   });
 })();
