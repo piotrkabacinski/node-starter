@@ -26,6 +26,19 @@ export async function addTodo(req: Request, res: Response) {
 
     res.send(todo).status(201);
   } catch (err) {
-    res.statusCode = 500;
+    res.sendStatus(500);
+  }
+}
+
+export async function getTodo(req: Request, res: Response) {
+  const todosRepository = getCustomRepository(TodosRepository);
+  const { id } = req.params;
+
+  const [todo] = await todosRepository.getTodo(Number(id));
+
+  if (todo) {
+    res.send(todo);
+  } else {
+    res.sendStatus(404);
   }
 }

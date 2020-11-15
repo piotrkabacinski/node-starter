@@ -16,20 +16,21 @@ envConfig();
 
   await dbConnect();
 
-  app.use(bodyParser.json());
-  app.use(
-    bodyParser.urlencoded({
-      extended: true,
+  app
+    .use(bodyParser.json())
+    .use(
+      bodyParser.urlencoded({
+        extended: true,
+      })
+    )
+    .use("/", (_, res, next) => {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Content-Type", "application/json");
+
+      next();
     })
-  );
-
-  app.use("/", (_, response, next) => {
-    response.setHeader("Content-Type", "application/json");
-    next();
-  });
-
-  app.use("/", rootRouter);
-  app.use("/todos", todosRouter);
+    .use("/", rootRouter)
+    .use("/todos", todosRouter);
 
   app.listen(port, () => {
     // tslint:disable: no-console

@@ -35,6 +35,5 @@ psql -U <user name>
 - [x] TypeOrm
 - [ ] OpenAPI
 - [ ] Tests
-- [ ] Redis
 - [ ] 'Todo app' example
 - [ ] Heroku deployment
