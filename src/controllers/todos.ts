@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { TodosRepository } from "../db/repository/TodoRepository";
+import { StatusCodes } from 'http-status-codes';
 
 export async function getTodos(_, res: Response) {
   const todosRepository = getCustomRepository(TodosRepository);
@@ -24,9 +25,9 @@ export async function addTodo(req: Request, res: Response) {
 
     const [todo] = await todosRepository.getTodo(id);
 
-    res.send(todo).status(201);
+    res.send(todo).status(StatusCodes.OK);
   } catch (err) {
-    res.sendStatus(500);
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }
 
@@ -39,6 +40,6 @@ export async function getTodo(req: Request, res: Response) {
   if (todo) {
     res.send(todo);
   } else {
-    res.sendStatus(404);
+    res.sendStatus(StatusCodes.NOT_FOUND);
   }
 }
