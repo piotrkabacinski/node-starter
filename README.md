@@ -15,6 +15,12 @@ docker ps
 docker exec -it <container id> sh
 ```
 
+## Tests
+
+```
+npm t
+```
+
 ## DB
 
 Inside DB container:
@@ -34,6 +40,6 @@ psql -U <user name>
 - [x] Postgress DB
 - [x] TypeOrm
 - [ ] OpenAPI
-- [ ] Tests
+- [x] Tests
 - [ ] 'Todo app' example
 - [ ] Heroku deployment
