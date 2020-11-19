@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-    command: npm start
+    command: npm run serve
     env_file:
       - .env
     ports:

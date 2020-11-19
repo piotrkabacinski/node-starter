@@ -8,7 +8,7 @@ cp .env.template .env
 npm i
 
 docker-compose build
-docker-compose up # http://localhost:4000
+docker-compose up # or npm start
 
 # To start shell session inside container:
 docker ps

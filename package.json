@@ -4,7 +4,8 @@
   "description": "Hello, Node!",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "docker-compose up",
+    "serve": "nodemon",
     "docker:install": "docker-compose run --rm app npm i",
     "test": "ts-mocha ./src/**/*.spec.ts",
     "lint": "tslint ./src/**/*.ts",
