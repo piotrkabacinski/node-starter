@@ -1,12 +1,13 @@
-import express from "express";
-import bodyParser from "body-parser";
+import express from 'express';
+import bodyParser from 'body-parser';
+import { middleware } from 'express-openapi-validator';
 
-import dbConnect from "./db/index";
+import dbConnect from './db/index';
 
-import rootRouter from "./routes/root";
-import todosRouter from "./routes/todos";
+import rootRouter from './routes/root';
+import todosRouter from './routes/todos';
 
-import { config as envConfig } from "dotenv";
+import { config as envConfig } from 'dotenv';
 
 envConfig();
 
@@ -23,14 +24,29 @@ envConfig();
         extended: true,
       })
     )
-    .use("/", (_, res, next) => {
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader("Content-Type", "application/json");
+    .use('/', (_, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Content-Type', 'application/json');
 
       next();
     })
-    .use("/", rootRouter)
-    .use("/todos", todosRouter);
+    .use('/', rootRouter)
+    .use('/todos', todosRouter)
+    .use(
+      middleware({
+        apiSpec: `${__dirname}/../src/openapi.yaml`,
+        validateRequests: true,
+        validateResponses: true,
+      })
+    )
+    .use((err, req, res, next) => {
+      // 7. Customize errors
+      console.error(err); // dump error to console for debug
+      res.status(err.status || 500).json({
+        message: err.message,
+        errors: err.errors,
+      });
+    });
 
   app.listen(port, () => {
     // tslint:disable: no-console

@@ -39,7 +39,7 @@ psql -U <user name>
 - [x] Docker
 - [x] Postgress DB
 - [x] TypeOrm
-- [ ] OpenAPI
+- [x] OpenAPI
 - [x] Tests
 - [ ] 'Todo app' example
 - [ ] Heroku deployment
