@@ -30,23 +30,21 @@ envConfig();
 
       next();
     })
-    .use('/', rootRouter)
-    .use('/todos', todosRouter)
     .use(
       middleware({
         apiSpec: `${__dirname}/../src/openapi.yaml`,
-        validateRequests: true,
-        validateResponses: true,
+        validateRequests: true
       })
     )
-    .use((err, req, res, next) => {
-      // 7. Customize errors
-      console.error(err); // dump error to console for debug
+    .use((err, _, res, next) => {
+      console.error(err);
       res.status(err.status || 500).json({
         message: err.message,
         errors: err.errors,
       });
-    });
+    })
+    .use('/', rootRouter)
+    .use('/todos', todosRouter)
 
   app.listen(port, () => {
     // tslint:disable: no-console
