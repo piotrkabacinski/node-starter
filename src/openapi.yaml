@@ -19,3 +19,14 @@ paths:
                 properties:
                   foo:
                     type: string
+  /todos:
+    get:
+      summary: Get todos list
+      operationId: get-todos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
