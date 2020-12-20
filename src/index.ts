@@ -15,6 +15,8 @@ envConfig();
   const app = express();
   const port = Number(process.env.PORT);
 
+  console.log(process.env)
+
   await dbConnect();
 
   app
@@ -24,27 +26,33 @@ envConfig();
         extended: true,
       })
     )
-    .use('/', (_, res, next) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Content-Type', 'application/json');
 
-      next();
+  app.use(
+    middleware({
+      apiSpec: `${__dirname}/../src/openapi.json`,
+      validateRequests: true,
+      validateResponses: true
     })
-    .use(
-      middleware({
-        apiSpec: `${__dirname}/../src/openapi.yaml`,
-        validateRequests: true
-      })
-    )
-    .use((err, _, res, next) => {
-      console.error(err);
-      res.status(err.status || 500).json({
-        message: err.message,
-        errors: err.errors,
-      });
-    })
+  )
+
+  app.use('/', (_, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json');
+
+    next();
+  });
+
+  app
     .use('/', rootRouter)
     .use('/todos', todosRouter)
+
+  app.use((err, _, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({
+      message: err.message,
+      errors: err.errors,
+    });
+  });
 
   app.listen(port, () => {
     // tslint:disable: no-console
