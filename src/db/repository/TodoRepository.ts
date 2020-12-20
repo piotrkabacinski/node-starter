@@ -15,7 +15,7 @@ export class TodosRepository extends Repository<Todos> {
   }
 
   getTodo(id: number) {
-    return this.find({
+    return this.findOne({
       id,
     });
   }

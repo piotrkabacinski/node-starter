@@ -1,10 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
+import { Column, Entity, Generated, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Users } from "./Users";
 
 @Entity()
 export class Todos {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Generated("uuid")
+  uuid: string;
 
   @Column()
   description: string;
@@ -12,6 +15,12 @@ export class Todos {
   @Column()
   isDone: boolean;
 
-  @ManyToOne(() => User, (user) => user.todos)
-  user: User;
+  @Column({ nullable: true, type: "timestamp" })
+  created: Date;
+
+  @Column({ nullable: true, type: "timestamp" })
+  updated: Date;
+
+  @ManyToOne(() => Users, (user) => user.todos)
+  user: Users;
 }

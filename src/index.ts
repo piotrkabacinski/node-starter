@@ -7,6 +7,7 @@ import dbConnect from './db/index';
 
 import rootRouter from './routes/root';
 import todosRouter from './routes/todos';
+import usersRouter from './routes/users';
 
 import { config as envConfig } from 'dotenv';
 
@@ -30,9 +31,9 @@ envConfig();
 
   app.use(
     middleware({
-      apiSpec: `${__dirname}/../src/openapi.json`,
+      apiSpec: `${__dirname}/../src/openapi.yaml`,
       validateRequests: true,
-      validateResponses: true
+      // validateResponses: true
     })
   )
 
@@ -46,6 +47,7 @@ envConfig();
   app
     .use('/', rootRouter)
     .use('/todos', todosRouter)
+    .use('/users', usersRouter)
 
   app.use((err, _req, res, _next) => {
     console.error(err);

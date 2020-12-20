@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: "Hello, node!"
+  version: "1.0"
+servers:
+  - url: "http://localhost:4000"
+paths:
+  /users:
+    parameters: []
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+      operationId: get-users-userId
+      description: Get users
+    post:
+      summary: ""
+      operationId: post-users
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "303":
+          description: See Other
+      description: Create new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+              required:
+                - email
+  "/users/{id}":
+    get:
+      summary: ""
+      operationId: get-users-id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      summary: ""
+      operationId: delete-users-id
+      responses:
+        "204":
+          description: No Content
+      description: Deletes user and related Todos
+components:
+  schemas:
+    Todo:
+      title: Todo
+      type: object
+      description: Todo element
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        description:
+          type: string
+        isDone:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        user:
+          type: number
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+          format: email
+      description: User model

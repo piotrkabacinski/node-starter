@@ -23,7 +23,7 @@ export async function addTodo(req: Request, res: Response) {
       raw: [{ id }],
     } = await todosRepository.addTodo(description);
 
-    const [todo] = await todosRepository.getTodo(id);
+    const todo = await todosRepository.getTodo(id);
 
     res.send(todo).status(StatusCodes.OK);
   } catch (err) {
@@ -35,7 +35,7 @@ export async function getTodo(req: Request, res: Response) {
   const todosRepository = getCustomRepository(TodosRepository);
   const { id } = req.params;
 
-  const [todo] = await todosRepository.getTodo(Number(id));
+  const todo = await todosRepository.getTodo(Number(id));
 
   if (todo) {
     res.send(todo);
