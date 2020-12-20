@@ -15,8 +15,6 @@ envConfig();
   const app = express();
   const port = Number(process.env.PORT);
 
-  console.log(process.env)
-
   await dbConnect();
 
   app
@@ -35,7 +33,7 @@ envConfig();
     })
   )
 
-  app.use('/', (_, res, next) => {
+  app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
 
@@ -46,7 +44,7 @@ envConfig();
     .use('/', rootRouter)
     .use('/todos', todosRouter)
 
-  app.use((err, _, res, next) => {
+  app.use((err, _req, res, _next) => {
     console.error(err);
     res.status(err.status || 500).json({
       message: err.message,
