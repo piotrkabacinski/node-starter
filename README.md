@@ -3,6 +3,7 @@
 ## Docker
 
 ```Bash
+# Create .env file base on template file:
 cp .env.template .env
 
 npm i
@@ -13,6 +14,12 @@ docker-compose up # or npm start
 # To start shell session inside container:
 docker ps
 docker exec -it <container id> sh
+```
+
+When installing new dependencies, don't forget to install them within docker-container as well:
+
+```
+npm run docker:install
 ```
 
 ## Tests

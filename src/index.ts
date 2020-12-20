@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { middleware } from 'express-openapi-validator';
+import morgan from 'morgan';
 
 import dbConnect from './db/index';
 
@@ -24,6 +25,8 @@ envConfig();
         extended: true,
       })
     )
+
+  app.use(morgan(':method :url :status (:response-time ms)'))
 
   app.use(
     middleware({
