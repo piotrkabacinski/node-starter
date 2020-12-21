@@ -4,5 +4,6 @@ declare namespace NodeJS {
     POSTGRES_PASSWORD: string;
     POSTGRES_DB: string;
     PORT: string;
+    NODE_ENV: 'dev' | 'prod' | 'test'
   }
 }

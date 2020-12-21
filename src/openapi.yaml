@@ -66,6 +66,24 @@ paths:
         "204":
           description: No Content
       description: Deletes user and related Todos
+  /:
+    get:
+      summary: Root endpoint
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date_time:
+                    type: string
+                    format: date-time
+                required:
+                  - date_time
+      operationId: get-root
 components:
   schemas:
     Todo:

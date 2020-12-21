@@ -1,61 +1,11 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import { middleware } from 'express-openapi-validator';
-import morgan from 'morgan';
-
-import dbConnect from './db/index';
-
-import rootRouter from './routes/root';
-import todosRouter from './routes/todos';
-import usersRouter from './routes/users';
-
 import { config as envConfig } from 'dotenv';
+import createApp from './app';
 
 envConfig();
 
 (async () => {
-  const app = express();
+  const app = await createApp();
   const port = Number(process.env.PORT);
-
-  await dbConnect();
-
-  app
-    .use(bodyParser.json())
-    .use(
-      bodyParser.urlencoded({
-        extended: true,
-      })
-    )
-
-  app.use(morgan(':method :url :status (:response-time ms)'))
-
-  app.use(
-    middleware({
-      apiSpec: `${__dirname}/../src/openapi.yaml`,
-      validateRequests: true,
-      // validateResponses: true
-    })
-  )
-
-  app.use((_, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', 'application/json');
-
-    next();
-  });
-
-  app
-    .use('/', rootRouter)
-    .use('/todos', todosRouter)
-    .use('/users', usersRouter)
-
-  app.use((err, _req, res, _next) => {
-    console.error(err);
-    res.status(err.status || 500).json({
-      message: err.message,
-      errors: err.errors,
-    });
-  });
 
   app.listen(port, () => {
     // tslint:disable: no-console

@@ -6,7 +6,7 @@ export default async function dbConnect() {
   // https://typeorm.io/#/using-ormconfig/overriding-options-defined-in-ormconfig
   Object.assign(connectionOptions, {
     database: process.env.POSTGRES_DB,
-    host: "db",
+    host: process.env.POSTGRES_HOST,
     password: process.env.POSTGRES_PASSWORD,
     port: 5432,
     type: "postgres",
