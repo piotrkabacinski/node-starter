@@ -1,14 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Todos } from "./Todos";
+import { Todo } from "./Todo";
 
-@Entity()
-export class Users {
+@Entity({ name: "users" })
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   email: string;
 
-  @OneToMany(() => Todos, ({ user }) => user)
-  todos: Todos[];
+  @OneToMany(() => Todo, ({ user }) => user)
+  todos: Todo[];
 }

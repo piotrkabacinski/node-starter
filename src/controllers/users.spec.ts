@@ -26,6 +26,18 @@ describe("Users", () => {
       .expect(StatusCodes.BAD_REQUEST);
   });
 
+  it("Should return specific user", async () => {
+    const {
+      body: { id },
+    } = await createUserRequest(email);
+
+    const { body } = await apiRequest
+      .get(`/users/${id}`)
+      .expect(StatusCodes.OK);
+
+    expect(body.email).to.be.equal(email);
+  });
+
   it("Should return list of users", async () => {
     const emails = [email, "bar@example.com"];
 

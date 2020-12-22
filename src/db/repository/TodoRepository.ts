@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Todos } from "../entity/Todos";
+import { Todo } from "../entity/Todo";
 
-@EntityRepository(Todos)
-export class TodosRepository extends Repository<Todos> {
+@EntityRepository(Todo)
+export class TodosRepository extends Repository<Todo> {
   addTodo(description: string) {
     return this.insert({
       description,

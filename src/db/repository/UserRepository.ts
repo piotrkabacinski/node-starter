@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Users } from "../entity/Users";
+import { User } from "../entity/User";
 
-@EntityRepository(Users)
-export class UsersRepository extends Repository<Users> {
+@EntityRepository(User)
+export class UsersRepository extends Repository<User> {
   createUser(email: string) {
     return this.insert({
       email,
@@ -10,7 +10,7 @@ export class UsersRepository extends Repository<Users> {
   }
 
   getUsers() {
-    return this.find()
+    return this.find();
   }
 
   getUserByEmail(email: string) {
