@@ -1,7 +1,7 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../db/repository/UserRepository";
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes } from "http-status-codes";
 
 export async function getUsers(_, res: Response) {
   const usersRepository = getCustomRepository(UsersRepository);
@@ -20,12 +20,13 @@ export async function createUser(req: Request, res: Response) {
   const existingUser = await usersRepository.getUserByEmail(email);
 
   if (existingUser === undefined) {
-    const { identifiers: [{ id }] } = await usersRepository.createUser(email);
+    const {
+      identifiers: [{ id }],
+    } = await usersRepository.createUser(email);
     const user = await usersRepository.getUserById(id);
 
     res.status(StatusCodes.CREATED);
     res.send(user);
-
   } else {
     res.sendStatus(StatusCodes.SEE_OTHER);
   }

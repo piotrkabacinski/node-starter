@@ -5,9 +5,10 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "docker-compose up",
+    "test": "docker-compose run --rm app npm run docker:test",
     "serve": "NODE_ENV=dev ts-node-dev --respawn --transpile-only src/index.ts",
     "docker:install": "docker-compose run --rm app npm i",
-    "test": "NODE_ENV=test ts-mocha --config .mocharc.jsonc",
+    "docker:test": "NODE_ENV=test ts-mocha --config .mocharc.jsonc",
     "lint": "eslint ./src/**/*.ts"
   },
   "repository": {
