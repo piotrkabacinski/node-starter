@@ -1,20 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { middleware } from 'express-openapi-validator';
 import morgan from 'morgan';
 import { StatusCodes } from 'http-status-codes';
-
-import dbConnect from './db/index';
+import { middleware } from 'express-openapi-validator';
 
 import rootRouter from './routes/root';
 // import todosRouter from './routes/todos';
 import usersRouter from './routes/users';
 
-export default async () => {
+export default () => {
   const app = express();
   const env = process.env.NODE_ENV;
-
-  await dbConnect();
 
   app
     .use(bodyParser.json())

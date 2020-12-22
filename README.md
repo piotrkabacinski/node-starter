@@ -13,7 +13,7 @@ docker-compose up # or npm start
 
 # To start shell session inside container:
 docker ps
-docker exec -it <container id> sh
+docker exec -it hello-node_app_1 sh
 ```
 
 When installing new dependencies, don't forget to install them within docker-container as well:

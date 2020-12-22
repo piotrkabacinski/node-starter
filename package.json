@@ -7,7 +7,7 @@
     "start": "docker-compose up",
     "serve": "NODE_ENV=dev ts-node-dev --respawn --transpile-only src/index.ts",
     "docker:install": "docker-compose run --rm app npm i",
-    "test": "NODE_ENV=test ts-mocha ./src/**/*.spec.ts",
+    "test": "NODE_ENV=test ts-mocha --config .mocharc.jsonc",
     "lint": "eslint ./src/**/*.ts"
   },
   "repository": {

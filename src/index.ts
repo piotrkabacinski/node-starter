@@ -1,10 +1,12 @@
 import { config as envConfig } from 'dotenv';
 import createApp from './app';
+import dbConnect from './db';
 
 envConfig();
 
 (async () => {
-  const app = await createApp();
+  await dbConnect();
+  const app = createApp();
   const port = Number(process.env.PORT);
 
   app.listen(port, () => {
