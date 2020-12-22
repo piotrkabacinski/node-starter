@@ -40,6 +40,13 @@ psql -U <user name>
 \dt # Show data bases tables
 ```
 
+## Redis
+
+```Bash
+docker exec -it hello-node_redis_1 sh
+redis-cli
+```
+
 ## TODOs
 
 - [x] TypeScript
@@ -49,6 +56,6 @@ psql -U <user name>
 - [x] OpenAPI
 - [x] Tests
 - [ ] Migrations
-- [ ] Redis
+- [x] Redis
 - [ ] 'Todo app' example
 - [ ] App Deployment
