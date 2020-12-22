@@ -49,5 +49,6 @@ psql -U <user name>
 - [x] OpenAPI
 - [x] Tests
 - [ ] Migrations
+- [ ] Redis
 - [ ] 'Todo app' example
 - [ ] App Deployment
