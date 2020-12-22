@@ -1,5 +1,5 @@
 {
-  "synchronize": false,
+  "synchronize": true,
   "logging": true,
   "entities": ["src/db/entity/**/*.ts"],
   "migrations": ["src/db/migration/**/*.ts"],

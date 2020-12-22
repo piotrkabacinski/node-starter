@@ -48,5 +48,6 @@ psql -U <user name>
 - [x] TypeOrm
 - [x] OpenAPI
 - [x] Tests
+- [ ] Migrations
 - [ ] 'Todo app' example
-- [ ] Heroku deployment
+- [ ] App Deployment
