@@ -12,6 +12,12 @@
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types"],
     "isolatedModules": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+    }
   },
   "lib": ["es2019"],
   "types": ["@types/node", "./src/types.d.ts"],

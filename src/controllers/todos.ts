@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { TodosRepository } from "../db/repository/TodoRepository";
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes } from "http-status-codes";
 
 export async function getTodos(_, res: Response) {
   const todosRepository = getCustomRepository(TodosRepository);

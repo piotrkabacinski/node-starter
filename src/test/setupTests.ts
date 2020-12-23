@@ -1,4 +1,9 @@
 import { config as envConfig } from "dotenv";
+import { SinonStub, stub } from "sinon";
+
+import redis, { RedisClient } from "redis";
+import redisMock from "redis-mock";
+
 import {
   Connection,
   createConnection,
@@ -10,12 +15,15 @@ let connection: Connection;
 let testDB: string;
 let queryRunner: QueryRunner;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let fakeRedis: SinonStub<any[], RedisClient>;
+
 before(async () => {
   envConfig();
 
-  testDB = `${process.env.POSTGRES_DB + "_test"}`;
+  fakeRedis = stub(redis, "createClient").callsFake(redisMock.createClient);
 
-  console.info(`Create DB: ${testDB}`);
+  testDB = `${process.env.POSTGRES_DB + "_test"}`;
 
   const connectionOptions = await getConnectionOptions();
 
@@ -24,6 +32,7 @@ before(async () => {
     password: process.env.POSTGRES_PASSWORD,
     port: 5432,
     type: "postgres",
+    synchronize: true,
     logging: false,
     username: process.env.POSTGRES_USER,
   });
@@ -45,7 +54,7 @@ afterEach(async () => {
 });
 
 after(async () => {
-  console.info(`Drop DB: ${testDB}`);
+  fakeRedis.restore();
 
   await queryRunner.dropDatabase(testDB);
   await connection.close();

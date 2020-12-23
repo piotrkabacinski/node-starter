@@ -8,11 +8,12 @@ services:
     env_file:
       - .env
     ports:
-      - ${PORT}:${PORT}
+      - ${APP_PORT}:${APP_PORT}
     volumes:
       - .:/usr/src/app
     links:
       - db
+      - redis
   db:
     image: postgres:13.0-alpine
     ports:

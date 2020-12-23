@@ -1,28 +1,31 @@
 import { Response } from "express";
-import redis from "redis";
+import redis, { RedisClient } from "redis";
 
-const client = redis.createClient({
-  host: "redis",
-});
-
-const incrementVisits = () =>
+const incrementVisits = (redisClient: RedisClient) =>
   new Promise((resolve) => {
     const key = "value";
 
-    client.get(key, (_, replay) => {
+    redisClient.get(key, (_, replay) => {
       if (replay) {
-        client.incr(key);
+        redisClient.incr(key);
         resolve(replay);
       } else {
-        client.set(key, "1");
+        redisClient.set(key, "1");
         resolve("1");
       }
     });
   });
 
 export default async function (_, res: Response) {
+  const redisClient = redis.createClient({
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT),
+  });
+
+  const visits = await incrementVisits(redisClient);
+
   res.send({
     date_time: new Date().toISOString(),
-    visits: await incrementVisits(),
+    visits,
   });
 }
