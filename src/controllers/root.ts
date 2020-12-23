@@ -1,17 +1,17 @@
 import { Response } from "express";
 import redis, { RedisClient } from "redis";
 
-const incrementVisits = (redisClient: RedisClient) =>
+const incrementVisits = (redisClient: RedisClient): Promise<number> =>
   new Promise((resolve) => {
     const key = "value";
 
     redisClient.get(key, (_, replay) => {
       if (replay) {
         redisClient.incr(key);
-        resolve(replay);
+        resolve(Number(replay));
       } else {
         redisClient.set(key, "1");
-        resolve("1");
+        resolve(1);
       }
     });
   });

@@ -81,8 +81,11 @@ paths:
                   date_time:
                     type: string
                     format: date-time
+                  visits:
+                    type: number
                 required:
                   - date_time
+                  - visits
       operationId: get-root
 components:
   schemas:
