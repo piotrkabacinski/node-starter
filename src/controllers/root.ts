@@ -1,5 +1,6 @@
 import { Response } from "express";
-import redis, { RedisClient } from "redis";
+import { RedisClient } from "redis";
+import { getRedisClient } from "../redisClient";
 
 const incrementVisits = (redisClient: RedisClient): Promise<number> =>
   new Promise((resolve) => {
@@ -17,12 +18,7 @@ const incrementVisits = (redisClient: RedisClient): Promise<number> =>
   });
 
 export default async function (_, res: Response) {
-  const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: Number(process.env.REDIS_PORT),
-  });
-
-  const visits = await incrementVisits(redisClient);
+  const visits = await incrementVisits(getRedisClient());
 
   res.send({
     date_time: new Date().toISOString(),

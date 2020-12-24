@@ -14,16 +14,15 @@ import {
 let connection: Connection;
 let testDB: string;
 let queryRunner: QueryRunner;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let fakeRedis: SinonStub<any[], RedisClient>;
 
 before(async () => {
   envConfig();
 
-  fakeRedis = stub(redis, "createClient").callsFake(redisMock.createClient);
-
   testDB = `${process.env.POSTGRES_DB + "_test"}`;
+
+  fakeRedis = stub(redis, "createClient").callsFake(redisMock.createClient);
 
   const connectionOptions = await getConnectionOptions();
 
@@ -54,8 +53,8 @@ afterEach(async () => {
 });
 
 after(async () => {
-  fakeRedis.restore();
-
   await queryRunner.dropDatabase(testDB);
   await connection.close();
+
+  fakeRedis.restore();
 });
