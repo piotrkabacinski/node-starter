@@ -1,6 +1,8 @@
 {
   "synchronize": true,
   "logging": true,
+  "port": 5432,
+  "type": "postgres",
   "entities": ["src/db/entity/**/*.ts"],
   "migrations": ["src/db/migration/**/*.ts"],
   "subscribers": ["src/subscriber/**/*.ts"]

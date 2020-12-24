@@ -8,8 +8,6 @@ export default async function dbConnect() {
     database: process.env.POSTGRES_DB,
     host: process.env.POSTGRES_HOST,
     password: process.env.POSTGRES_PASSWORD,
-    port: 5432,
-    type: "postgres",
     username: process.env.POSTGRES_USER,
   });
 

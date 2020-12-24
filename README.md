@@ -10,10 +10,6 @@ npm i
 
 docker-compose build
 docker-compose up # or npm start
-
-# To start shell session inside container:
-docker ps
-docker exec -it hello-node_app_1 sh
 ```
 
 When installing new dependencies, don't forget to install them within docker-container as well:
@@ -28,11 +24,11 @@ npm run docker:install
 npm t
 ```
 
-## DB
-
-Inside DB container:
+## Postgres
 
 ```Bash
+docker exec -it hello-node_db_1 sh
+
 psql -U <user name>
 
 \l # list of all DB
@@ -43,15 +39,14 @@ psql -U <user name>
 ## Redis
 
 ```Bash
-docker exec -it hello-node_redis_1 sh
-redis-cli
+docker exec -it hello-node_redis_1 redis-cli
 ```
 
 ## TODOs
 
 - [x] TypeScript
 - [x] Docker
-- [x] Postgress DB
+- [x] Postgres DB
 - [x] TypeOrm
 - [x] OpenAPI
 - [x] Tests

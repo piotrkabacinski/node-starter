@@ -29,11 +29,9 @@ before(async () => {
   Object.assign(connectionOptions, {
     host: process.env.POSTGRES_HOST,
     password: process.env.POSTGRES_PASSWORD,
-    port: 5432,
-    type: "postgres",
+    username: process.env.POSTGRES_USER,
     synchronize: true,
     logging: false,
-    username: process.env.POSTGRES_USER,
   });
 
   connection = await createConnection(connectionOptions);
