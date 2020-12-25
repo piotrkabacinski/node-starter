@@ -26,7 +26,7 @@ export default () => {
     middleware({
       apiSpec: `${__dirname}/../src/openapi.yaml`,
       validateRequests: true,
-      validateResponses: isTest, // *.json only?
+      validateResponses: isTest,
     })
   );
 

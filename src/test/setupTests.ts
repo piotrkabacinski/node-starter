@@ -16,14 +16,8 @@ let queryRunner: QueryRunner;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let fakeRedis: SinonStub<any[], RedisClient>;
 
-before(async () => {
-  envConfig();
-
-  testDB = `${process.env.POSTGRES_DB + "_test"}`;
-
-  fakeRedis = stub(redisClient, "getRedisClient").callsFake(() =>
-    redisMock.createClient()
-  );
+const createTestDB = async () => {
+  const dbName = `${process.env.POSTGRES_DB + "_test"}`;
 
   const connectionOptions = await getConnectionOptions();
 
@@ -40,15 +34,38 @@ before(async () => {
   queryRunner = connection.createQueryRunner();
 
   await queryRunner.createDatabase(testDB, true);
-});
 
-afterEach(async () => {
+  return {
+    dbName,
+    connection,
+    queryRunner,
+  };
+};
+
+const clearTestTables = async (connection: Connection) => {
   const entities = connection.entityMetadatas;
 
   for (const entity of entities) {
-    const query = `DELETE FROM ${entity.tableName};`;
-    await queryRunner.query(query);
+    await queryRunner.query(`DELETE FROM ${entity.tableName};`);
   }
+};
+
+before(async () => {
+  envConfig();
+
+  fakeRedis = stub(redisClient, "getRedisClient").callsFake(() =>
+    redisMock.createClient()
+  );
+
+  const props = await createTestDB();
+
+  testDB = props.dbName;
+  queryRunner = props.queryRunner;
+  connection = props.connection;
+});
+
+afterEach(async () => {
+  clearTestTables(connection);
 });
 
 after(async () => {
