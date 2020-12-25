@@ -18,13 +18,13 @@ export async function deleteUser(req: Request, res: Response) {
 
   const usersRepository = getCustomRepository(UsersRepository);
 
-  const existingUser = await (await usersRepository.getUserById(id)).id;
+  const existingUser = await usersRepository.getUserById(id);
 
-  if (existingUser) {
+  if (existingUser === undefined) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+  } else {
     await usersRepository.deleteUser(id);
     res.sendStatus(StatusCodes.NO_CONTENT);
-  } else {
-    res.sendStatus(StatusCodes.NOT_FOUND);
   }
 }
 

@@ -2,6 +2,11 @@ openapi: 3.0.0
 info:
   title: "Hello, node!"
   version: "1.0"
+  contact:
+    name: Piotr
+    email: hello@example.com
+    url: "https://exampl.eocm"
+  description: An openAPI example for Node.js project
 servers:
   - url: "http://localhost:4000"
 paths:
@@ -9,7 +14,6 @@ paths:
     parameters: []
     get:
       summary: Get User Info by User ID
-      tags: []
       responses:
         "200":
           description: OK
@@ -23,7 +27,9 @@ paths:
                     items:
                       $ref: "#/components/schemas/User"
       operationId: get-users-userId
-      description: Get users
+      description: Get all created users
+      tags:
+        - users
     post:
       summary: ""
       operationId: post-users
@@ -48,6 +54,8 @@ paths:
                   format: email
               required:
                 - email
+      tags:
+        - users
   "/users/{id}":
     get:
       summary: ""
@@ -59,6 +67,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+      description: Get specific user details
+      tags:
+        - users
     delete:
       summary: ""
       operationId: delete-users-id
@@ -68,10 +79,19 @@ paths:
         "404":
           description: Not Found
       description: Deletes user and related Todos
+      tags:
+        - users
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
   /:
     get:
       summary: Root endpoint
-      tags: []
+      tags:
+        - root
       responses:
         "200":
           description: OK
@@ -89,28 +109,9 @@ paths:
                   - date_time
                   - visits
       operationId: get-root
+      description: Get server date and amount of requests to root path
 components:
   schemas:
-    Todo:
-      title: Todo
-      type: object
-      description: Todo element
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        description:
-          type: string
-        isDone:
-          type: boolean
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        user:
-          type: number
     User:
       title: User
       type: object
@@ -121,3 +122,6 @@ components:
           type: string
           format: email
       description: User model
+tags:
+  - name: root
+  - name: users
