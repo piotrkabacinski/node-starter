@@ -17,7 +17,7 @@ let queryRunner: QueryRunner;
 let fakeRedis: SinonStub<any[], RedisClient>;
 
 const createTestDB = async () => {
-  const dbName = `${process.env.POSTGRES_DB + "_test"}`;
+  const dbName = `${process.env.POSTGRES_DB}_test`;
 
   const connectionOptions = await getConnectionOptions();
 
@@ -29,11 +29,11 @@ const createTestDB = async () => {
     logging: false,
   });
 
-  connection = await createConnection(connectionOptions);
+  const connection = await createConnection(connectionOptions);
 
-  queryRunner = connection.createQueryRunner();
+  const queryRunner = connection.createQueryRunner();
 
-  await queryRunner.createDatabase(testDB, true);
+  await queryRunner.createDatabase(dbName, true);
 
   return {
     dbName,
@@ -65,7 +65,7 @@ before(async () => {
 });
 
 afterEach(async () => {
-  clearTestTables(connection);
+  await clearTestTables(connection);
 });
 
 after(async () => {
