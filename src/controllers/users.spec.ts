@@ -53,4 +53,14 @@ describe("Users", () => {
     expect(users[0].email).to.be.equal(emails[0]);
     expect(users[1].email).to.be.equal(emails[1]);
   });
+
+  it("Should delete user", async () => {
+    const {
+      body: { id },
+    } = await createUserRequest(email).expect(StatusCodes.CREATED);
+
+    await apiRequest.delete(`/users/${id}`).expect(StatusCodes.NO_CONTENT);
+
+    await apiRequest.get(`/users/${id}`).expect(StatusCodes.NOT_FOUND);
+  });
 });

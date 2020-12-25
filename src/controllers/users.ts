@@ -13,6 +13,21 @@ export async function getUsers(_, res: Response) {
   });
 }
 
+export async function deleteUser(req: Request, res: Response) {
+  const id = Number(req.params.id);
+
+  const usersRepository = getCustomRepository(UsersRepository);
+
+  const existingUser = await (await usersRepository.getUserById(id)).id;
+
+  if (existingUser) {
+    await usersRepository.deleteUser(id);
+    res.sendStatus(StatusCodes.NO_CONTENT);
+  } else {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+  }
+}
+
 export async function createUser(req: Request, res: Response) {
   const usersRepository = getCustomRepository(UsersRepository);
   const { email } = req.body;

@@ -24,4 +24,10 @@ export class UsersRepository extends Repository<User> {
       id,
     });
   }
+
+  deleteUser(id: number) {
+    return this.delete({
+      id,
+    });
+  }
 }
