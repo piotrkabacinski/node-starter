@@ -1,8 +1,7 @@
 import { config as envConfig } from "dotenv";
 import { SinonStub, stub } from "sinon";
-
-import redis, { RedisClient } from "redis";
-import redisMock from "redis-mock";
+import redisMock, { RedisClient } from "redis-mock";
+import * as redisClient from "../redisClient";
 
 import {
   Connection,
@@ -22,7 +21,9 @@ before(async () => {
 
   testDB = `${process.env.POSTGRES_DB + "_test"}`;
 
-  fakeRedis = stub(redis, "createClient").callsFake(redisMock.createClient);
+  fakeRedis = stub(redisClient, "getRedisClient").callsFake(() =>
+    redisMock.createClient()
+  );
 
   const connectionOptions = await getConnectionOptions();
 

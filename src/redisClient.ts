@@ -1,7 +1,9 @@
 import redis from "redis";
 
-export const getRedisClient = () =>
-  redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: Number(process.env.REDIS_PORT),
-  });
+const client = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: Number(process.env.REDIS_PORT),
+});
+
+// For easier mocking, created redis client is wrapped in a function:
+export const getRedisClient = () => client;
