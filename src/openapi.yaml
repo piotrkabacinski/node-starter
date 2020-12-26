@@ -165,6 +165,7 @@ paths:
         required: true
       - schema:
           type: string
+          format: uuid
         name: uuid
         in: path
         required: true
