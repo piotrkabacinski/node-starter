@@ -1,5 +1,15 @@
 # Hello, Node.js!
 
+Dockerized Node.js blueprint project using following stack:
+
+- TypeScript
+- Express.js
+- TypeORM
+- Postgres
+- Redis
+- OpenApi
+- Mocha
+
 ## Docker
 
 ```Bash
