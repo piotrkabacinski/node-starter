@@ -36,6 +36,13 @@ psql -U <user name>
 \dt # Show data bases tables
 ```
 
+### Migrations
+
+1. Set `synchronize: false` in `ormconfig.js`.
+2. Make change in schema (for example update property name in some entity).
+3. [Create migration file](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#generating-migrations): `sh typeorm.sh migration:generate -n PostRefactoring` - typeorm will compare current schema with entities and add required queries to migration file (`src/db/migration/<timestamp>-PostRefactoring`).
+4. Run migrations to apply your change to the database: `sh typeorm.sh migration:run`.
+
 ## Redis
 
 ```Bash
@@ -50,7 +57,7 @@ docker exec -it hello-node_redis_1 redis-cli
 - [x] TypeOrm
 - [x] OpenAPI
 - [x] Tests
-- [ ] Migrations
+- [x] Migrations
 - [x] Redis
 - [ ] 'Todo app' example
 - [ ] App Deployment

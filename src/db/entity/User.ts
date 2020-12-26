@@ -9,6 +9,9 @@ export class User {
   @Column()
   email: string;
 
+  @Column({ nullable: true, type: "timestamp" })
+  created_at: Date;
+
   @OneToMany(() => Todo, ({ user }) => user)
   todos: Todo[];
 }

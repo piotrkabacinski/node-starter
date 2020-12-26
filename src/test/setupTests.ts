@@ -22,9 +22,7 @@ const createTestDB = async () => {
   const connectionOptions = await getConnectionOptions();
 
   Object.assign(connectionOptions, {
-    host: process.env.POSTGRES_HOST,
-    password: process.env.POSTGRES_PASSWORD,
-    username: process.env.POSTGRES_USER,
+    database: undefined,
     synchronize: true,
     logging: false,
   });

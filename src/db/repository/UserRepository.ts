@@ -6,6 +6,7 @@ export class UsersRepository extends Repository<User> {
   createUser(email: string) {
     return this.insert({
       email,
+      created_at: new Date(),
     });
   }
 
