@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
-import { StatusCodes } from "http-status-codes";
 import { middleware } from "express-openapi-validator";
 
 import rootRouter from "./routes/root";
@@ -45,7 +44,7 @@ export default () => {
   app.use((err, _req, res, _next) => {
     console.error(err);
 
-    res.status(err.status || StatusCodes.BAD_REQUEST).json({
+    res.status(err.status).json({
       message: err.message,
       errors: err.errors,
     });

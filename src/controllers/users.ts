@@ -2,6 +2,16 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../db/repository/UserRepository";
 import { StatusCodes } from "http-status-codes";
+import { User } from "src/db/entity/User";
+
+const formatUserResponse = (
+  user: User
+): Omit<User, "created_at"> & { created_at: string } => {
+  return {
+    ...user,
+    created_at: user.created_at.toISOString(),
+  };
+};
 
 export async function getUsers(_, res: Response) {
   const usersRepository = getCustomRepository(UsersRepository);
@@ -9,7 +19,7 @@ export async function getUsers(_, res: Response) {
   const users = await usersRepository.getUsers();
 
   res.send({
-    users,
+    users: users.map((user) => formatUserResponse(user)),
   });
 }
 
@@ -38,10 +48,11 @@ export async function createUser(req: Request, res: Response) {
     const {
       identifiers: [{ id }],
     } = await usersRepository.createUser(email);
+
     const user = await usersRepository.getUserById(id);
 
     res.status(StatusCodes.CREATED);
-    res.send(user);
+    res.send(formatUserResponse(user));
   } else {
     res.sendStatus(StatusCodes.SEE_OTHER);
   }
@@ -55,7 +66,7 @@ export async function getUser(req: Request, res: Response) {
   const user = await usersRepository.getUserById(Number(id));
 
   if (user) {
-    res.send(user);
+    res.send(formatUserResponse(user));
   } else {
     res.sendStatus(StatusCodes.NOT_FOUND);
   }

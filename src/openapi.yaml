@@ -125,10 +125,6 @@ components:
         created_at:
           type: string
           format: date-time
-      required:
-        - id
-        - email
-        - created_at
 tags:
   - name: root
   - name: users
