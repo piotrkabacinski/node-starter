@@ -44,7 +44,7 @@ const clearTestTables = async (connection: Connection) => {
   const entities = connection.entityMetadatas;
 
   for (const entity of entities) {
-    await queryRunner.query(`DELETE FROM ${entity.tableName};`);
+    await queryRunner.query(`TRUNCATE ${entity.tableName} CASCADE;`);
   }
 };
 

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../db/repository/UserRepository";
 import { StatusCodes } from "http-status-codes";
-import { User } from "src/db/entity/User";
+import { User } from "../db/entity/User";
 
 const formatUserResponse = (
   user: User

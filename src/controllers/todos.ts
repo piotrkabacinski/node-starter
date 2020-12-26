@@ -2,44 +2,72 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { TodosRepository } from "../db/repository/TodoRepository";
 import { StatusCodes } from "http-status-codes";
+import { UsersRepository } from "../db/repository/UserRepository";
+import omit from "lodash/omit";
+import { Todo } from "src/db/entity/Todo";
 
-export async function getTodos(_, res: Response) {
+const formatTodo = (todo: Todo) => ({
+  ...omit(todo, "id"),
+  created_at: todo.created_at.toISOString(),
+  updated_at: todo.updated_at ? todo.updated_at.toISOString() : undefined,
+});
+
+export async function createTodo(req: Request, res: Response) {
+  const { id: userId } = req.params;
+  const { description }: { description: string } = req.body;
+
   const todosRepository = getCustomRepository(TodosRepository);
-
-  const todos = await todosRepository.getTodos();
-
-  res.send({
-    todos,
-  });
-}
-
-export async function addTodo(req: Request, res: Response) {
-  const todosRepository = getCustomRepository(TodosRepository);
+  const userRepositor = getCustomRepository(UsersRepository);
 
   try {
-    const { description }: { description: string } = req.body;
+    const user = await userRepositor.getUserById(Number(userId));
+
+    const newTodo = await todosRepository.addTodo(user, description);
 
     const {
       raw: [{ id }],
-    } = await todosRepository.addTodo(description);
+    } = newTodo;
 
-    const todo = await todosRepository.getTodo(id);
+    const todo = await todosRepository.getTodoById(id);
 
-    res.send(todo).status(StatusCodes.OK);
+    res.status(StatusCodes.CREATED);
+
+    res.send(formatTodo(todo));
   } catch (err) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }
 
 export async function getTodo(req: Request, res: Response) {
+  const { uuid } = req.params;
+
   const todosRepository = getCustomRepository(TodosRepository);
-  const { id } = req.params;
 
-  const todo = await todosRepository.getTodo(Number(id));
+  const todo = await todosRepository.getTodoByUuid(uuid);
 
-  if (todo) {
-    res.send(todo);
-  } else {
+  if (todo === undefined) {
     res.sendStatus(StatusCodes.NOT_FOUND);
+  } else {
+    res.send(formatTodo(todo));
   }
+}
+
+export async function getTodos(req: Request, res: Response) {
+  const { id: userId } = req.params;
+
+  const todosRepository = getCustomRepository(TodosRepository);
+  const userRepositor = getCustomRepository(UsersRepository);
+
+  const user = await userRepositor.getUserById(Number(userId));
+
+  if (user === undefined) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+    return;
+  }
+
+  const todos = await todosRepository.getUsersTodos(user);
+
+  res.send({
+    todos: todos.map((todo) => formatTodo(todo)),
+  });
 }

@@ -4,7 +4,7 @@ const envConfig = require('dotenv').config;
 envConfig();
 
 module.exports = {
-  "synchronize": false,
+  "synchronize": true,
   "database": process.env.POSTGRES_DB,
   "host": process.env.POSTGRES_HOST,
   "password": process.env.POSTGRES_PASSWORD,

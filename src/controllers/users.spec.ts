@@ -1,19 +1,17 @@
 import { expect } from "chai";
 import { StatusCodes } from "http-status-codes";
 import apiRequest from "../test/apiRequest";
+import { createUserRequest } from "../test/utils";
 
 describe("Users", () => {
   const email = "foo@example.com";
-
-  const createUserRequest = (email: string) => {
-    return apiRequest.post("/users").send({ email });
-  };
 
   describe("Create", () => {
     it("Should create user if not exist", async () => {
       const { body } = await createUserRequest(email).expect(
         StatusCodes.CREATED
       );
+
       expect(body.email).to.be.equal(email);
     });
 
@@ -60,8 +58,10 @@ describe("Users", () => {
       } = await apiRequest.get("/users").expect(StatusCodes.OK);
 
       expect(users.length).to.be.equal(emails.length);
-      expect(users[0].email).to.be.equal(emails[0]);
-      expect(users[1].email).to.be.equal(emails[1]);
+
+      for (const index in emails) {
+        expect(users[index].email).to.be.equal(emails[index]);
+      }
     });
   });
 

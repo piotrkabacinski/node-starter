@@ -110,6 +110,113 @@ paths:
                   - visits
       operationId: get-root
       description: Get server date and amount of requests to root path
+  "/users/{id}/todos":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Todos
+      tags:
+        - todos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  todos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Todo"
+      operationId: get-users-id-todos
+      description: User's added todos
+    post:
+      summary: Create Todo
+      operationId: post-users-id-todos
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+      description: Creat new todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+      tags:
+        - todos
+  "/users/{id}/todos/{uuid}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+    get:
+      summary: Get Todo
+      tags:
+        - todos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          description: Not Found
+      operationId: get-users-id-todos-id
+      description: Get specific todo
+    patch:
+      summary: Update Todo
+      operationId: patch-users-id-todos-uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                isDone:
+                  type: boolean
+      tags:
+        - todos
+      description: Update Todo
+    delete:
+      summary: Delete Todo
+      operationId: delete-users-id-todos-uuid
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+      description: Deletes user's todo item
+      tags:
+        - todos
 components:
   schemas:
     User:
@@ -125,6 +232,25 @@ components:
         created_at:
           type: string
           format: date-time
+    Todo:
+      title: Todo
+      type: object
+      properties:
+        uuid:
+          type: string
+        description:
+          type: string
+        is_done:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+      description: User's todo item
+      x-tags:
+        - todos
 tags:
   - name: root
   - name: users
+  - name: todos
