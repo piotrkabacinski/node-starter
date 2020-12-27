@@ -22,11 +22,3 @@
 
    `git push heroku mater`
    </small>
-
-5. Create env variables according to `.env` file
-
-   <small>
-
-   `Settings > Config vars`
-
-   </small>

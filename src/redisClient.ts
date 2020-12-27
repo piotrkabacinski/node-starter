@@ -1,17 +1,25 @@
 import redis from "redis";
+import url from "url";
 
-const client = redis.createClient({
-  host: process.env.REDIS_HOST,
+const getConfig = () => {
+  if (process.env.NODE_ENV !== "production") {
+    return {
+      host: process.env.REDIS_HOST,
+      port: Number(process.env.REDIS_PORT),
+    };
+  }
 
-  // no_ready_check is required for Heroku's Redis connection
-  // https://github.com/RedisLabs/rediscloud-node-sample/blob/master/web.js#L7
-  no_ready_check: process.env.NODE_ENV === "production" ? true : undefined,
-  password:
-    process.env.NODE_ENV === "production"
-      ? process.env.REDIS_PASSWORD
-      : undefined,
-  port: Number(process.env.REDIS_PORT),
-});
+  const { port, hostname, href } = url.parse(process.env.REDIS_URL);
+
+  return {
+    no_ready_check: true,
+    password: /\/\/:(.*?)@/.exec(href)[1],
+    host: hostname,
+    port: Number(port),
+  };
+};
+
+const client = redis.createClient(getConfig());
 
 // For easier mocking, created redis client is wrapped in a function:
 export const getRedisClient = () => client;

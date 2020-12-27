@@ -63,6 +63,10 @@ docker exec -it hello-node_redis_1 redis-cli
 
 For manual tests of Todo API example you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
 
+## Deployment
+
+App is configured for Heroku environemnt. See [Heroku.md](Heroku.md) file for deployment details.
+
 ## TODOs
 
 - [x] TypeScript
@@ -74,4 +78,4 @@ For manual tests of Todo API example you can import [Insomnia](https://insomnia.
 - [x] Migrations
 - [x] Redis
 - [x] 'Todo API' example
-- [ ] App Deployment
+- [x] Heroku App Deployment
