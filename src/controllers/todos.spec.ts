@@ -68,7 +68,7 @@ describe("Todos", () => {
     });
   });
 
-  describe.only("Delete", async () => {
+  describe("Delete", async () => {
     it("Should delete todo", async () => {
       const {
         body: { id },
@@ -99,6 +99,76 @@ describe("Todos", () => {
       await apiRequest
         .delete(`/users/${id}/todos/${nonExistingUuid}`)
         .expect(StatusCodes.NOT_FOUND);
+    });
+  });
+
+  describe("Update", async () => {
+    const requestBody = {
+      description: "Updated desc.",
+      is_done: true,
+    };
+
+    it("Should update Todo item", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
+
+      const { body } = await apiRequest
+        .patch(`/users/${id}/todos/${uuid}`)
+        .send(requestBody)
+        .expect(StatusCodes.OK);
+
+      expect(body.description).to.be.equal(requestBody.description);
+      expect(body.is_done).to.be.equal(requestBody.is_done);
+      expect(body).to.haveOwnProperty("updated_at");
+    });
+
+    it("Should return 404 if user or todo does not exist", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
+
+      await apiRequest
+        .patch(`/users/-1/todos/${uuid}`)
+        .send(requestBody)
+        .expect(StatusCodes.NOT_FOUND);
+
+      await apiRequest
+        .patch(`/users/${id}/todos/${nonExistingUuid}`)
+        .send(requestBody)
+        .expect(StatusCodes.NOT_FOUND);
+    });
+
+    it("Should return 400 if request body is not valid", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
+
+      await apiRequest
+        .patch(`/users/${id}/todos/${uuid}`)
+        .send({
+          is_done: 123,
+        })
+        .expect(StatusCodes.BAD_REQUEST);
+
+      await apiRequest
+        .patch(`/users/${id}/todos/${uuid}`)
+        .send({
+          description: true,
+        })
+        .expect(StatusCodes.BAD_REQUEST);
     });
   });
 });

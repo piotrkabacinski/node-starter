@@ -3,6 +3,7 @@ import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../db/repository/UserRepository";
 import { StatusCodes } from "http-status-codes";
 import { User } from "../db/entity/User";
+import { TodosRepository } from "../db/repository/TodoRepository";
 
 const formatUserResponse = (
   user: User
@@ -24,16 +25,18 @@ export async function getUsers(_, res: Response) {
 }
 
 export async function deleteUser(req: Request, res: Response) {
-  const id = Number(req.params.id);
+  const userId = Number(req.params.userId);
 
   const usersRepository = getCustomRepository(UsersRepository);
+  const todosRepository = getCustomRepository(TodosRepository);
 
-  const existingUser = await usersRepository.getUserById(id);
+  const existingUser = await usersRepository.getUserById(userId);
 
   if (existingUser === undefined) {
     res.sendStatus(StatusCodes.NOT_FOUND);
   } else {
-    await usersRepository.deleteUser(id);
+    await todosRepository.deleteTodos(existingUser);
+    await usersRepository.deleteUser(userId);
     res.sendStatus(StatusCodes.NO_CONTENT);
   }
 }
@@ -59,11 +62,11 @@ export async function createUser(req: Request, res: Response) {
 }
 
 export async function getUser(req: Request, res: Response) {
-  const { id } = req.params;
+  const userId = Number(req.params.userId);
 
   const usersRepository = getCustomRepository(UsersRepository);
 
-  const user = await usersRepository.getUserById(Number(id));
+  const user = await usersRepository.getUserById(userId);
 
   if (user) {
     res.send(formatUserResponse(user));

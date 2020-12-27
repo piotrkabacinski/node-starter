@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { StatusCodes } from "http-status-codes";
 import apiRequest from "../test/apiRequest";
-import { createUserRequest } from "../test/utils";
+import { createTodoRequest, createUserRequest } from "../test/utils";
 
 describe("Users", () => {
   const email = "foo@example.com";
@@ -76,9 +76,26 @@ describe("Users", () => {
       await apiRequest.get(`/users/${id}`).expect(StatusCodes.NOT_FOUND);
     });
 
+    it("Should delete user and his Todos", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email).expect(StatusCodes.CREATED);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, "Foo bar");
+
+      await apiRequest.get(`/users/${id}/todos/${uuid}`).expect(StatusCodes.OK);
+
+      await apiRequest.delete(`/users/${id}`).expect(StatusCodes.NO_CONTENT);
+
+      await apiRequest
+        .get(`/users/${id}/todos/${uuid}`)
+        .expect(StatusCodes.NOT_FOUND);
+    });
+
     it("Should return 404 if user does not exist", async () => {
-      const id = -1;
-      await apiRequest.delete(`/users/${id}`).expect(StatusCodes.NOT_FOUND);
+      await apiRequest.delete(`/users/-1`).expect(StatusCodes.NOT_FOUND);
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   getTodo,
   getTodos,
   deleteTodo,
+  updateTodo,
 } from "../controllers/todos";
 import {
   getUsers,
@@ -17,13 +18,14 @@ export default (() => {
 
   router.get("/", getUsers);
   router.post("/", createUser);
-  router.get("/:id", getUser);
-  router.delete("/:id", deleteUser);
+  router.get("/:userId", getUser);
+  router.delete("/:userId", deleteUser);
 
-  router.post("/:id/todos", createTodo);
-  router.get("/:id/todos", getTodos);
-  router.get("/:id/todos/:uuid", getTodo);
-  router.delete("/:id/todos/:uuid", deleteTodo);
+  router.post("/:userId/todos", createTodo);
+  router.get("/:userId/todos", getTodos);
+  router.get("/:userId/todos/:uuid", getTodo);
+  router.delete("/:userId/todos/:uuid", deleteTodo);
+  router.patch("/:userId/todos/:uuid", updateTodo);
 
   return router;
 })();
