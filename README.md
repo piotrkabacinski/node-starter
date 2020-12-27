@@ -50,7 +50,7 @@ psql -U <user name>
 
 1. Set `synchronize: false` in `ormconfig.js`.
 2. Make change in schema (for example update property name in some entity).
-3. Inside app container: [Create migration file](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#generating-migrations): `npm run migration:generate` - typeorm will compare current schema with entities and add required queries to migration file (`src/db/migration/<timestamp>-PostRefactoring`).
+3. [Create migration file](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#generating-migrations): `npm run migration:generate` - typeorm will compare current schema with entities and add required queries to migration file (`src/db/migration/<timestamp>-PostRefactoring`).
 4. Run migrations to apply your change to the database: `npm run migration:run`.
 
 ## Redis
@@ -58,6 +58,10 @@ psql -U <user name>
 ```Bash
 docker exec -it hello-node_redis_1 redis-cli
 ```
+
+## Insomnia
+
+For manual tests you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
 
 ## TODOs
 
