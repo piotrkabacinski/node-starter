@@ -8,9 +8,11 @@
     "test": "docker-compose run --rm app npm run docker:test",
     "serve": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register src/index.ts --respawn --transpile-only src/index.ts",
     "docker:install": "docker-compose run --rm app npm i",
-    "docker:test": "NODE_ENV=test ts-mocha -r tsconfig-paths/register src/**/*.ts --config .mocharc.jsonc --exit",
+    "docker:test": "NODE_ENV=test ts-mocha -r tsconfig-paths/register src/**/*.spec.ts --config .mocharc.jsonc --exit",
     "lint": "eslint ./src/**/*.ts",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "docker-compose run --rm app npm run typeorm -- migration:generate -n PostRefactoring",
+    "migration:run": "docker-compose run --rm app npm run typeorm -- migration:run"
   },
   "repository": {
     "type": "git",
