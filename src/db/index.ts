@@ -6,10 +6,15 @@ export default async function dbConnect() {
   // Heroku's Postgres connection
   if (process.env.NODE_ENV === "production") {
     Object.assign(connectionOptions, {
+      synchronize: true,
       url: process.env.DATABASE_URL,
-      logging: false,
+      logging: true,
+      // https://github.com/typeorm/typeorm/issues/278#issuecomment-614345011
+      ssl: true,
       extra: {
-        ssl: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
     });
   }
