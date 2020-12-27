@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { UsersRepository } from "../db/repository/UserRepository";
+import { UsersRepository } from "src/db/repository/UserRepository";
 import { StatusCodes } from "http-status-codes";
-import { User } from "../db/entity/User";
-import { TodosRepository } from "../db/repository/TodoRepository";
+import { User } from "src/db/entity/User";
+import { TodosRepository } from "src/db/repository/TodoRepository";
 
 const formatUserResponse = (
   user: User

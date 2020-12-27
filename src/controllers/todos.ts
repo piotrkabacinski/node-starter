@@ -3,9 +3,9 @@ import { getCustomRepository } from "typeorm";
 import {
   TodosRepository,
   UpdateTodoRequestBody,
-} from "../db/repository/TodoRepository";
+} from "src/db/repository/TodoRepository";
 import { StatusCodes } from "http-status-codes";
-import { UsersRepository } from "../db/repository/UserRepository";
+import { UsersRepository } from "src/db/repository/UserRepository";
 import omit from "lodash/omit";
 import { Todo } from "src/db/entity/Todo";
 

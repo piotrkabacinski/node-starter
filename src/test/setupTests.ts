@@ -1,7 +1,7 @@
 import { config as envConfig } from "dotenv";
 import { SinonStub, stub } from "sinon";
 import redisMock, { RedisClient } from "redis-mock";
-import * as redisClient from "../redisClient";
+import * as redisClient from "src/redisClient";
 
 import {
   Connection,

@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { RedisClient } from "redis";
-import { getRedisClient } from "../redisClient";
+import { getRedisClient } from "src/redisClient";
 
 const incrementVisits = (redisClient: RedisClient): Promise<number> =>
   new Promise((resolve) => {

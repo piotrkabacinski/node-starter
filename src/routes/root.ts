@@ -1,5 +1,5 @@
 import { Router } from "express";
-import rootController from "../controllers/root";
+import rootController from "src/controllers/root";
 
 export default (() => {
   const router = Router();

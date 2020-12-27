@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Todo } from "../entity/Todo";
-import { User } from "../entity/User";
+import { Todo } from "src/db/entity/Todo";
+import { User } from "src/db/entity/User";
 import { v4 as uuidv4 } from "uuid";
 import omitBy from "lodash/omitBy";
 import isNil from "lodash/isNil";

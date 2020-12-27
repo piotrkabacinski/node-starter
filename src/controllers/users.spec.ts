@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { StatusCodes } from "http-status-codes";
-import apiRequest from "../test/apiRequest";
-import { createTodoRequest, createUserRequest } from "../test/utils";
+import apiRequest from "src/test/apiRequest";
+import { createTodoRequest, createUserRequest } from "src/test/utils";
 
 describe("Users", () => {
   const email = "foo@example.com";

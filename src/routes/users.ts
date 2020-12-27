@@ -5,13 +5,13 @@ import {
   getTodos,
   deleteTodo,
   updateTodo,
-} from "../controllers/todos";
+} from "src/controllers/todos";
 import {
   getUsers,
   createUser,
   getUser,
   deleteUser,
-} from "../controllers/users";
+} from "src/controllers/users";
 
 export default (() => {
   const router = Router();
