@@ -39,11 +39,13 @@ export async function createTodo(req: Request, res: Response) {
 }
 
 export async function getTodo(req: Request, res: Response) {
-  const { uuid } = req.params;
+  const { uuid, id: userId } = req.params;
 
   const todosRepository = getCustomRepository(TodosRepository);
+  const userRepositor = getCustomRepository(UsersRepository);
 
-  const todo = await todosRepository.getTodoByUuid(uuid);
+  const user = await userRepositor.getUserById(Number(userId));
+  const todo = await todosRepository.getTodoByUuid(user, uuid);
 
   if (todo === undefined) {
     res.sendStatus(StatusCodes.NOT_FOUND);
@@ -70,4 +72,23 @@ export async function getTodos(req: Request, res: Response) {
   res.send({
     todos: todos.map((todo) => formatTodo(todo)),
   });
+}
+
+export async function deleteTodo(req: Request, res: Response) {
+  const { uuid, id: userId } = req.params;
+
+  const todosRepository = getCustomRepository(TodosRepository);
+  const userRepositor = getCustomRepository(UsersRepository);
+
+  const user = await userRepositor.getUserById(Number(userId));
+  const todo = await todosRepository.getTodoByUuid(user, uuid);
+
+  if (todo === undefined) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+    return;
+  }
+
+  await todosRepository.deleteTodo(user, uuid);
+
+  res.sendStatus(StatusCodes.NO_CONTENT);
 }

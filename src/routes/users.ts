@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createTodo, getTodo, getTodos } from "../controllers/todos";
+import {
+  createTodo,
+  getTodo,
+  getTodos,
+  deleteTodo,
+} from "../controllers/todos";
 import {
   getUsers,
   createUser,
@@ -18,6 +23,7 @@ export default (() => {
   router.post("/:id/todos", createTodo);
   router.get("/:id/todos", getTodos);
   router.get("/:id/todos/:uuid", getTodo);
+  router.delete("/:id/todos/:uuid", deleteTodo);
 
   return router;
 })();

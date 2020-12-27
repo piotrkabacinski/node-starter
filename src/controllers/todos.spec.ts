@@ -6,6 +6,7 @@ import { createUserRequest, createTodoRequest } from "../test/utils";
 describe("Todos", () => {
   const email = "foo@example.com";
   const description = "Hello, World!";
+  const nonExistingUuid = "00000000-0000-0000-0000-000000000000";
 
   describe("Create", async () => {
     it("Should create new Todo", async () => {
@@ -56,15 +57,47 @@ describe("Todos", () => {
       expect(body.description).to.be.equal(description);
     });
 
-    it("Should response with 404 when specific todo was not found", async () => {
+    it("Should response with 404 when specific user's todo was not found", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
 
-      const uuid = "00000000-0000-0000-0000-000000000000";
+      await apiRequest
+        .get(`/users/${id}/todos/${nonExistingUuid}`)
+        .expect(StatusCodes.NOT_FOUND);
+    });
+  });
+
+  describe.only("Delete", async () => {
+    it("Should delete todo", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
 
       await apiRequest
-        .get(`/users/${id}/todos/${uuid}`)
+        .delete(`/users/${id}/todos/${uuid}`)
+        .expect(StatusCodes.NO_CONTENT);
+    });
+
+    it("Should return 404 if user or todo does not exist", async () => {
+      const {
+        body: { id },
+      } = await createUserRequest(email);
+
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
+
+      await apiRequest
+        .delete(`/users/-1/todos/${uuid}`)
+        .expect(StatusCodes.NOT_FOUND);
+
+      await apiRequest
+        .delete(`/users/${id}/todos/${nonExistingUuid}`)
         .expect(StatusCodes.NOT_FOUND);
     });
   });

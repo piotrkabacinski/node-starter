@@ -15,8 +15,9 @@ export class TodosRepository extends Repository<Todo> {
     });
   }
 
-  getTodoByUuid(uuid: string) {
+  getTodoByUuid(user: User, uuid: string) {
     return this.findOne({
+      user,
       uuid,
     });
   }
@@ -30,6 +31,13 @@ export class TodosRepository extends Repository<Todo> {
   getUsersTodos(user: User) {
     return this.find({
       user,
+    });
+  }
+
+  deleteTodo(user: User, uuid: string) {
+    return this.delete({
+      user,
+      uuid,
     });
   }
 }
