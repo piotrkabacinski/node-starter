@@ -4,7 +4,6 @@ import morgan from "morgan";
 import { middleware } from "express-openapi-validator";
 
 import rootRouter from "./routes/root";
-// import todosRouter from './routes/todos';
 import usersRouter from "./routes/users";
 
 export default () => {
@@ -36,10 +35,7 @@ export default () => {
     next();
   });
 
-  app
-    .use("/", rootRouter)
-    // .use('/todos', todosRouter)
-    .use("/users", usersRouter);
+  app.use("/", rootRouter).use("/users", usersRouter);
 
   app.use((err, _req, res, _next) => {
     console.error(err);

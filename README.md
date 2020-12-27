@@ -69,5 +69,5 @@ docker exec -it hello-node_redis_1 redis-cli
 - [x] Tests
 - [x] Migrations
 - [x] Redis
-- [ ] 'Todo app' example
+- [x] 'Todo app' example
 - [ ] App Deployment
