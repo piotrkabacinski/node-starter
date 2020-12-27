@@ -6,6 +6,10 @@ const client = redis.createClient({
   // no_ready_check is required for Heroku's Redis connection
   // https://github.com/RedisLabs/rediscloud-node-sample/blob/master/web.js#L7
   no_ready_check: process.env.NODE_ENV === "production" ? true : undefined,
+  password:
+    process.env.NODE_ENV === "production"
+      ? process.env.REDIS_PASSWORD
+      : undefined,
   port: Number(process.env.REDIS_PORT),
 });
 
