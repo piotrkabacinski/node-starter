@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "docker-compose up",
+    "build": "rm -rf ./dist && tsc --rootDir ./src",
     "test": "docker-compose run --rm app npm run docker:test",
     "serve": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register src/index.ts --respawn --transpile-only src/index.ts",
     "docker:install": "docker-compose run --rm app npm i",
