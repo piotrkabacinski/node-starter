@@ -12,7 +12,7 @@
     "migration:run": "docker-compose run --rm app npm run typeorm -- migration:run",
     "serve": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register src/index.ts --respawn --transpile-only src/index.ts",
     "start:dev": "docker-compose up",
-    "start": "node dist/index.js",
+    "start": "NODE_ENV=prod node -r tsconfig-paths/register -r ts-node/register dist/index.js",
     "test": "docker-compose run --rm app npm run docker:test",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
   },
