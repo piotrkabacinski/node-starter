@@ -20,5 +20,5 @@
 
    `git remote add heroku https://git.heroku.com/<app name>.git`
 
-   `git push heroku mater`
+   `git push heroku master`
    </small>
