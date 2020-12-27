@@ -61,7 +61,7 @@ docker exec -it hello-node_redis_1 redis-cli
 
 ## Insomnia
 
-For manual tests you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
+For manual tests of Todo API example you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
 
 ## TODOs
 
@@ -73,5 +73,5 @@ For manual tests you can import [Insomnia](https://insomnia.rest/) workspace fro
 - [x] Tests
 - [x] Migrations
 - [x] Redis
-- [x] 'Todo app' example
+- [x] 'Todo API' example
 - [ ] App Deployment
