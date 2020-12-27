@@ -12,12 +12,21 @@
 
    <small>`Resources` > Search for `Heroku Postgres` and `Heroku Redis` and add them.</small>
 
-4. Add Heroku git remote server
+4. Deploy app to Heroku
 
    <small>
-     Heroku Git URL can be found in `Settings > App Information` section.
+
+   Heroku Git URL can be found in `Settings > App Information` section.
 
    `git remote add heroku https://git.heroku.com/<app name>.git`
+
+   `git push heroku mater`
    </small>
 
-5.
+5. Create env variables according to `.env` file
+
+   <small>
+
+   `Settings > Config vars`
+
+   </small>
