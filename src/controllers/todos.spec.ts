@@ -62,6 +62,14 @@ describe("Todos", () => {
         body: { id },
       } = await createUserRequest(email);
 
+      const {
+        body: { uuid },
+      } = await createTodoRequest(id, description);
+
+      await apiRequest
+        .get(`/users/-1/todos/${uuid}`)
+        .expect(StatusCodes.NOT_FOUND);
+
       await apiRequest
         .get(`/users/${id}/todos/${nonExistingUuid}`)
         .expect(StatusCodes.NOT_FOUND);
