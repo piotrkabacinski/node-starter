@@ -19,7 +19,7 @@ cp .env.template .env
 npm i
 
 docker-compose build
-docker-compose up # or npm start
+docker-compose up # or npm start:dev
 ```
 
 When installing new dependencies, don't forget to install them within docker-container as well:
