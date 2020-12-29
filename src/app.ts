@@ -38,7 +38,9 @@ export default () => {
   app.use("/", rootRouter).use("/users", usersRouter);
 
   app.use((err, _req, res, _next) => {
-    console.error(err);
+    if (!isTest) {
+      console.error(err);
+    }
 
     res.status(err.status).json({
       message: err.message,

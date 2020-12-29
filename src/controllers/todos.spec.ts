@@ -19,7 +19,7 @@ describe("Todos", () => {
   });
 
   describe("Get", async () => {
-    it("Should get users todo", async () => {
+    it("Should get users Todo", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
@@ -41,7 +41,7 @@ describe("Todos", () => {
       }
     });
 
-    it("Should get specific todo", async () => {
+    it("Should get specific Todo", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
@@ -57,7 +57,7 @@ describe("Todos", () => {
       expect(body.description).to.be.equal(description);
     });
 
-    it("Should response with 404 when specific user's todo was not found", async () => {
+    it("Should response with 404 when specific user's Todo was not found", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
@@ -77,7 +77,7 @@ describe("Todos", () => {
   });
 
   describe("Delete", async () => {
-    it("Should delete todo", async () => {
+    it("Should delete Todo", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
@@ -91,7 +91,7 @@ describe("Todos", () => {
         .expect(StatusCodes.NO_CONTENT);
     });
 
-    it("Should return 404 if user or todo does not exist", async () => {
+    it("Should return 404 if user or Todo does not exist", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);
@@ -135,7 +135,7 @@ describe("Todos", () => {
       expect(body).to.haveOwnProperty("updated_at");
     });
 
-    it("Should return 404 if user or todo does not exist", async () => {
+    it("Should return 404 if user or Todo does not exist", async () => {
       const {
         body: { id },
       } = await createUserRequest(email);

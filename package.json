@@ -4,7 +4,7 @@
   "description": "Hello, Node!",
   "main": "src/index.ts",
   "scripts": {
-    "build": "rm -rf ./dist && tsc --rootDir ./src",
+    "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
     "docker:install": "docker-compose run --rm app npm i",
     "docker:test": "NODE_ENV=test ts-mocha -r tsconfig-paths/register src/**/*.spec.ts --config .mocharc.jsonc --exit",
     "lint": "eslint ./src/**/*.ts",
