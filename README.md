@@ -1,14 +1,14 @@
 # Hello, Node.js!
 
-Dockerized Node.js blueprint project using following stack:
+Dockerized Node.js project starter using following stack:
 
-- TypeScript
-- Express.js
-- TypeORM
-- Postgres
-- Redis
-- OpenApi
-- Mocha
+- [TypeScript](https://www.typescriptlang.org/)
+- [Express.js](https://expressjs.com/)
+- [TypeORM](https://typeorm.io/#/)
+- [Postgres](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
+- [OpenApi](https://www.openapis.org/)
+- [Mocha](https://mochajs.org/)
 
 ## Docker
 
@@ -65,17 +65,4 @@ For manual tests of Todo API example you can import [Insomnia](https://insomnia.
 
 ## Deployment
 
-App is configured for Heroku environemnt. See [Heroku.md](Heroku.md) file for deployment details.
-
-## TODOs
-
-- [x] TypeScript
-- [x] Docker
-- [x] Postgres DB
-- [x] TypeOrm
-- [x] OpenAPI
-- [x] Tests
-- [x] Migrations
-- [x] Redis
-- [x] 'Todo API' example
-- [x] Heroku App Deployment
+App is configured for [Heroku](https://www.heroku.com/) environment. See [Heroku.md](Heroku.md) file for deployment details.

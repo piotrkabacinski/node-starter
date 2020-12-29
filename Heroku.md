@@ -2,7 +2,7 @@
 
 1. Create new app
 
-   <small>In app dashboard: `New > Create new app`</small>
+   <small>Apps dashboard: `New > Create new app`</small>
 
 2. Set Node.js buildpack
 
@@ -10,7 +10,7 @@
 
 3. Add Redis and Postgres Add-ons
 
-   <small>`Resources` > Search for `Heroku Postgres` and `Heroku Redis` and add them.</small>
+   <small>`Resources` > Search for `Heroku Postgres` and `Heroku Redis` and add them. Heroku will create required environment variables for you.</small>
 
 4. Deploy app to Heroku
 
@@ -22,3 +22,5 @@
 
    `git push heroku master`
    </small>
+
+5. If it's a production deployment make sure you are aware of [synchronize](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#how-migrations-work) value in production DB connection: `src/db/index.ts`. By default it refers to value in `ormconfig.js`.
