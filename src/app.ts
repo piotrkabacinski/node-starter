@@ -10,6 +10,8 @@ export default () => {
   const app = express();
   const isTest = process.env.NODE_ENV === "test";
 
+  app.use("/static", express.static(`${__dirname}/../src/static`));
+
   app.use(bodyParser.json()).use(
     bodyParser.urlencoded({
       extended: true,
