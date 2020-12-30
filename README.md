@@ -13,7 +13,7 @@ Dockerized Node.js project starter using following stack:
 ## Docker
 
 ```Bash
-# Create .env file base on template file:
+# Create .env file based on template file:
 cp .env.template .env
 
 npm i
