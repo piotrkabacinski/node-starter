@@ -19,7 +19,7 @@ cp .env.template .env
 npm i
 
 docker-compose build
-docker-compose up # or npm run start:dev
+docker-compose up # or npm run dev
 ```
 
 When installing new dependencies, don't forget to install them within docker-container as well:
@@ -37,7 +37,7 @@ npm t
 ## Postgres
 
 ```Bash
-docker exec -it hello-node_db_1 sh
+docker exec -it <container name prefix>_db_1 sh
 
 psql -U <user name>
 
@@ -56,7 +56,7 @@ psql -U <user name>
 ## Redis
 
 ```Bash
-docker exec -it hello-node_redis_1 redis-cli
+docker exec -it <container name prefix>_redis_1 redis-cli
 ```
 
 ## Insomnia

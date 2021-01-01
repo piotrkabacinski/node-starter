@@ -10,7 +10,7 @@ module.exports = {
   "password": process.env.POSTGRES_PASSWORD,
   "username": process.env.POSTGRES_USER,
   "logging": true,
-  "port": 5432,
+  "port": process.env.POSTGRES_PORT,
   "type": "postgres",
   "entities": ["src/db/entity/**/*.ts"],
   "migrations": ["src/db/migration/**/*.ts"],
