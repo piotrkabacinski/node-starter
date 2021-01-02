@@ -10,7 +10,6 @@ const srcPath = `${__dirname}/../src`;
 
 const { NODE_ENV: env } = process.env;
 const isTest = env === "test";
-const isProduction = env === "production";
 
 export default () => {
   const app = express();
@@ -36,11 +35,6 @@ export default () => {
   );
 
   app.use((_req, res, next) => {
-    // Set proper CORS for environments
-    if (!isProduction) {
-      res.setHeader("Access-Control-Allow-Origin", "*");
-    }
-
     res.setHeader("Content-Type", "application/json");
 
     next();
