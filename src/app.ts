@@ -6,12 +6,16 @@ import { middleware } from "express-openapi-validator";
 import rootRouter from "./routes/root";
 import usersRouter from "./routes/users";
 
+const srcPath = `${__dirname}/../src`;
+
+const { NODE_ENV: env } = process.env;
+const isTest = env === "test";
+const isProduction = env === "production";
+
 export default () => {
   const app = express();
-  const isTest = process.env.NODE_ENV === "test";
-  const isProduction = process.env.NODE_ENV === "production";
 
-  app.use("/static", express.static(`${__dirname}/../src/static`));
+  app.use("/static", express.static(`${srcPath}/static`));
 
   app.use(bodyParser.json()).use(
     bodyParser.urlencoded({
@@ -25,7 +29,7 @@ export default () => {
 
   app.use(
     middleware({
-      apiSpec: `${__dirname}/../src/openapi.yaml`,
+      apiSpec: `${srcPath}/openapi.yaml`,
       validateRequests: true,
       validateResponses: isTest,
     })
