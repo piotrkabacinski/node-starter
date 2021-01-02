@@ -9,6 +9,7 @@ import usersRouter from "./routes/users";
 export default () => {
   const app = express();
   const isTest = process.env.NODE_ENV === "test";
+  const isProduction = process.env.NODE_ENV === "production";
 
   app.use("/static", express.static(`${__dirname}/../src/static`));
 
@@ -31,7 +32,11 @@ export default () => {
   );
 
   app.use((_req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    // Set proper CORS for environments
+    if (!isProduction) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+    }
+
     res.setHeader("Content-Type", "application/json");
 
     next();
