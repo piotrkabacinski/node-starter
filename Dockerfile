@@ -1,6 +1,6 @@
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 
-FROM node:12.19-alpine
+FROM node:14.15-alpine
 
 WORKDIR /usr/src/app
 
