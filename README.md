@@ -41,9 +41,9 @@ docker exec -it <container name prefix>_db_1 sh
 
 psql -U <user name>
 
-\l # list of all DB
-\c hello # connect to "hello" DB
-\dt # Show data bases tables
+\l # List all data bases
+\c <db name> # Connect to DB
+\dt # Show data base tables
 ```
 
 ### Migrations
