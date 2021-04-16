@@ -22,10 +22,10 @@ docker-compose build
 docker-compose up # or npm run dev
 ```
 
-When installing new dependencies, don't forget to install them within docker-container as well:
+When installing new dependencies, don't forget to install them within docker-container:
 
 ```
-npm run docker:install
+docker-compose run --rm app npm i
 ```
 
 ## Tests
@@ -46,7 +46,7 @@ psql -U <user name>
 \dt # Show data base tables
 ```
 
-### Migrations
+## Migrations
 
 1. Set `synchronize: false` in `ormconfig.js`.
 2. Make change in schema (for example update property name in some entity).
