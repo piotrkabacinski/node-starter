@@ -31,7 +31,7 @@ docker-compose run --rm app npm i
 ## Tests
 
 ```
-npm t
+docker-compose run --rm app npm t
 ```
 
 ## Postgres

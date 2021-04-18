@@ -1,7 +1,7 @@
 import express from "express";
-import bodyParser from "body-parser";
 import morgan from "morgan";
 import { middleware } from "express-openapi-validator";
+import cookieParser from "cookie-parser";
 
 import rootRouter from "./routes/root";
 import usersRouter from "./routes/users";
@@ -16,8 +16,10 @@ export default () => {
 
   app.use("/static", express.static(`${srcPath}/static`));
 
-  app.use(bodyParser.json()).use(
-    bodyParser.urlencoded({
+  app.use(cookieParser());
+
+  app.use(express.json()).use(
+    express.urlencoded({
       extended: true,
     })
   );
@@ -42,6 +44,7 @@ export default () => {
 
   app.use("/", rootRouter).use("/users", usersRouter);
 
+  // OpenApi error handler
   app.use((err, _req, res, _next) => {
     if (!isTest) {
       console.error(err);
