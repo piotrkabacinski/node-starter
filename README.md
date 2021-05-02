@@ -37,9 +37,7 @@ docker-compose run --rm app npm t
 ## Postgres
 
 ```Bash
-docker exec -it <container name prefix>_db_1 sh
-
-psql -U <user name>
+docker exec -it <container name prefix>_db_1 psql -U postgres
 
 \l # List all data bases
 \c <db name> # Connect to DB
