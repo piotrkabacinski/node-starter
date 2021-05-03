@@ -20,7 +20,7 @@
 
    `git remote add heroku https://git.heroku.com/<app name>.git`
 
-   `git push heroku master`
+   `git push heroku HEAD:master`
    </small>
 
 5. If it's a production deployment make sure you are aware of [synchronize](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#how-migrations-work) value in production DB connection: `src/db/index.ts`. By default it refers to value in `ormconfig.js`.
