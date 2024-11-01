@@ -1,27 +1,34 @@
 import { Response } from "express";
-import { RedisClient } from "redis";
-import { getRedisClient } from "src/redisClient";
+// import { type RedisClientType } from "@redis/client";
+// import { getRedisClient } from "src/redisClient";
+  
+// const incrementVisits = async (redisClient: RedisClientType): Promise<number> =>
+//   {
+//     const key = "value";
 
-const incrementVisits = (redisClient: RedisClient): Promise<number> =>
-  new Promise((resolve) => {
-    const key = "value";
+//     const value = await redisClient.get(key);
 
-    redisClient.get(key, (_, replay) => {
-      if (replay) {
-        redisClient.incr(key);
-        resolve(Number(replay));
-      } else {
-        redisClient.set(key, "1");
-        resolve(1);
-      }
-    });
-  });
+//     if (value) {
+//       return await redisClient.incr(key);
+//     }
+
+//     await redisClient.set(key, "1");
+
+//     return 1;
+//   };
 
 export default async function (_, res: Response) {
-  const visits = await incrementVisits(getRedisClient());
+  // const client = getRedisClient();
+
+  // try {
+  //   await client.connect();
+  // } catch (err) {
+  //   console.error(err);
+  // }
+
+  // const visits = await incrementVisits(client as unknown as any);
 
   res.send({
     date_time: new Date().toISOString(),
-    visits,
   });
 }
