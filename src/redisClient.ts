@@ -3,8 +3,7 @@ import { createClient } from "redis";
 const getConfig = () => {
   if (process.env.NODE_ENV !== "production") {
     return {
-      host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT),
+      url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
     };
   }
 
