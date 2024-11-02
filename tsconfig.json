@@ -2,9 +2,10 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "commonjs",
+    "module": "CommonJS",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
+    "skipDefaultLibCheck": true,
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",
@@ -21,6 +22,6 @@
   },
   "lib": ["es2019"],
   "types": ["@types/node", "./src/types.d.ts"],
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "src/**/*"],
   "exclude": ["node_modules"]
 }

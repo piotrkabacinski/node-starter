@@ -6,7 +6,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: "text", nullable: true })
   email: string;
 
   @Column({ type: "timestamp" })

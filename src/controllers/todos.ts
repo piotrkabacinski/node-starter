@@ -36,7 +36,7 @@ export async function createTodo(req: Request, res: Response) {
     res.status(StatusCodes.CREATED);
 
     res.send(formatTodo(todo));
-  } catch (err) {
+  } catch (_err) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }

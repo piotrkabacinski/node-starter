@@ -9,10 +9,10 @@ export class Todo {
   @Column({ type: "uuid" })
   uuid: string;
 
-  @Column()
+  @Column({ type: "text", nullable: true })
   description: string;
 
-  @Column()
+  @Column({ type: "bool" })
   is_done: boolean;
 
   @Column({ type: "timestamp" })

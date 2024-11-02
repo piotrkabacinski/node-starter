@@ -1,0 +1,4 @@
+- [ ] Update typeorm package
+- [ ] Update redis package
+- [ ] Fix tests
+- [ ] Remove ts-node if possible

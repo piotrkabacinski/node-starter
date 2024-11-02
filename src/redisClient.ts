@@ -5,7 +5,6 @@ const getConfig = () => {
     return {
       host: process.env.REDIS_HOST,
       port: Number(process.env.REDIS_PORT),
-      url: `redis://localhost:${process.env.REDIS_PORT}`
     };
   }
 

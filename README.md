@@ -2,6 +2,7 @@
 
 Dockerized Node.js project starter using following stack:
 
+- [Node v20.18](https://nodejs.org/en)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Express.js](https://expressjs.com/)
 - [TypeORM](https://typeorm.io/#/)
@@ -15,6 +16,9 @@ Dockerized Node.js project starter using following stack:
 ```Bash
 # Create .env file based on template file:
 cp .env.template .env
+
+# If having nvm - set 20.18 version beforehand:
+nvm use
 
 npm i
 
