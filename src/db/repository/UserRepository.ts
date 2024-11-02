@@ -1,34 +1,33 @@
-import { EntityRepository, Repository } from "typeorm";
 import { User } from "src/db/entity/User";
+import { AppDataSource } from "src/db";
 
-@EntityRepository(User)
-export class UsersRepository extends Repository<User> {
-  createUser(email: string) {
-    return this.insert({
-      email,
-      created_at: new Date(),
-    });
-  }
+const userRepository = AppDataSource.getRepository(User);
 
-  getUsers() {
-    return this.find();
-  }
+export const createUser = (email: User["email"]) => {
+  return userRepository.insert({
+    email,
+    created_at: new Date(),
+  });
+};
 
-  getUserByEmail(email: string) {
-    return this.findOne({
-      email,
-    });
-  }
+export const getUsers = () => {
+  return userRepository.find();
+};
 
-  getUserById(id: number) {
-    return this.findOne({
-      id,
-    });
-  }
+export const getUserByEmail = (email: User["email"]) => {
+  return userRepository.findOneBy({
+    email,
+  });
+};
 
-  deleteUser(id: number) {
-    return this.delete({
-      id,
-    });
-  }
-}
+export const getUserById = (id: User["id"]) => {
+  return userRepository.findOneBy({
+    id,
+  });
+};
+
+export const deleteUser = (id: User["id"]) => {
+  return userRepository.delete({
+    id,
+  });
+};

@@ -1,9 +1,10 @@
-/* eslint-disable */
-const envConfig = require('dotenv').config;
+import { DataSourceOptions } from "typeorm";
+import { config as envConfig } from "dotenv";
 
 envConfig();
 
-const productionConfig = {
+const productionConfig: DataSourceOptions = {
+  type: "postgres",
   synchronize: false,
   url: process.env.DATABASE_URL,
   logging: true,
@@ -16,23 +17,23 @@ const productionConfig = {
   },
 };
 
-const developmentConfig = {
+const developmentConfig: DataSourceOptions = {
+  type: "postgres",
   synchronize: true,
   database: process.env.POSTGRES_DB,
   host: process.env.POSTGRES_HOST,
   password: process.env.POSTGRES_PASSWORD,
   username: process.env.POSTGRES_USER,
-  port: process.env.POSTGRES_PORT,
-}
+  port: Number(process.env.POSTGRES_PORT),
+};
 
-module.exports = {
+const dataSourceOptions: DataSourceOptions = {
   logging: true,
-  type: "postgres",
-  entities: ["src/db/entity/**/*.ts"],
   migrations: ["src/db/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
-  cli: {
-    migrationsDir: "src/db/migration"
-  },
-  ...(process.env.NODE_ENV === "production" ? productionConfig : developmentConfig)
-}
+  ...(process.env.NODE_ENV === "production"
+    ? productionConfig
+    : developmentConfig),
+};
+
+export default dataSourceOptions;

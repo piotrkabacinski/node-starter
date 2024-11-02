@@ -1,6 +1,13 @@
-import { createConnection, getConnectionOptions } from "typeorm";
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import { User } from "./entity/User";
+import { Todo } from "./entity/Todo";
 
-export default async function dbConnect() {
-  const connectionOptions = await getConnectionOptions();
-  return await createConnection(connectionOptions);
-}
+import ormconfig from "../../ormconfig";
+
+export const AppDataSource = new DataSource({
+  ...ormconfig,
+  entities: [User, Todo],
+});
+
+AppDataSource.initialize().catch((error) => console.log(error));

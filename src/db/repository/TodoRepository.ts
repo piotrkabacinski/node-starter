@@ -1,65 +1,75 @@
-import { EntityRepository, Repository } from "typeorm";
 import { Todo } from "src/db/entity/Todo";
 import { User } from "src/db/entity/User";
 import { v4 as uuidv4 } from "uuid";
 import omitBy from "lodash/omitBy";
 import isNil from "lodash/isNil";
+import { AppDataSource } from "src/db";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">
 >;
 
-@EntityRepository(Todo)
-export class TodosRepository extends Repository<Todo> {
-  addTodo(user: User, description: string) {
-    return this.insert({
-      user,
-      description,
-      is_done: false,
-      uuid: uuidv4(),
-      created_at: new Date(),
-    });
-  }
+const todoRepository = AppDataSource.getRepository(Todo);
 
-  getTodoByUuid(user: User, uuid: string) {
-    return this.findOne({
-      user,
-      uuid,
-    });
-  }
+export const addTodo = (user: User, description: string) => {
+  return todoRepository.insert({
+    user,
+    description,
+    is_done: false,
+    uuid: uuidv4(),
+    created_at: new Date(),
+  });
+};
 
-  getTodoById(id: number) {
-    return this.findOne({
-      id,
-    });
-  }
+export const getTodoByUuid = (user: Todo["user"], uuid: Todo["uuid"]) => {
+  return todoRepository.findOneBy({
+    user,
+    uuid,
+  });
+};
 
-  getUsersTodos(user: User) {
-    return this.find({
-      user,
-    });
-  }
+export const getTodoById = (id: Todo["id"]) => {
+  return todoRepository.findOneBy({
+    id,
+  });
+};
 
-  deleteTodo(user: User, uuid: string) {
-    return this.delete({
-      user,
-      uuid,
-    });
-  }
+export const getUsersTodo = (user: Todo["user"], id: Todo["id"]) => {
+  return todoRepository.findBy({
+    id,
+    user,
+  });
+};
 
-  deleteTodos(user: User) {
-    return this.delete({
-      user,
-    });
-  }
+export const getUsersTodos = (user: Todo["user"]) => {
+  return todoRepository.findBy({
+    user,
+  });
+};
 
-  updateTodo(user: User, uuid: string, body: UpdateTodoRequestBody) {
-    return this.update(
-      { user, uuid },
-      {
-        ...omitBy(body, isNil),
-        updated_at: new Date(),
-      }
-    );
-  }
-}
+export const deleteTodos = (user: Todo["user"]) => {
+  return todoRepository.delete({
+    user,
+  });
+};
+
+export const deleteTodo = (user: Todo["user"], uuid: Todo["uuid"]) => {
+  return todoRepository.delete({
+    user,
+    uuid,
+  });
+};
+
+export const updateTodo = (
+  user: Todo["user"],
+  uuid: Todo["uuid"],
+  body: UpdateTodoRequestBody
+) => {
+  return todoRepository.update(
+    { user, uuid },
+    {
+      ...omitBy(body, isNil),
+      updated_at: new Date(),
+    }
+  );
+};
