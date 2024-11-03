@@ -3,8 +3,6 @@ import { config as envConfig } from "dotenv";
 import { createDatabase, dropDatabase } from "typeorm-extension";
 import { getAppDataSourceInstance } from "./src/db/index";
 
-import "reflect-metadata";
-
 envConfig();
 
 const dbName = `${process.env.POSTGRES_DB}_test`;
