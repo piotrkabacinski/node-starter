@@ -1,4 +1,4 @@
 - [x] Update typeorm package
 - [x] Update redis package
-- [ ] Fix tests
-- [ ] Remove ts-node if possible
+- [x] Fix tests
+- [ ] Test migrations

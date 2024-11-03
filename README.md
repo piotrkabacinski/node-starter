@@ -9,7 +9,7 @@ Dockerized Node.js project starter using following stack:
 - [Postgres](https://www.postgresql.org/)
 - [Redis](https://redis.io/)
 - [OpenApi](https://www.openapis.org/)
-- [Mocha](https://mochajs.org/)
+- [Jest](https://jestjs.io/)
 
 ## Docker
 
