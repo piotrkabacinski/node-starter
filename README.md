@@ -4,10 +4,10 @@ Dockerized Node.js project starter using following stack:
 
 - [Node v20.18](https://nodejs.org/en)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Express.js](https://expressjs.com/)
+- [Express.js v5](https://expressjs.com/)
 - [TypeORM](https://typeorm.io/#/)
-- [Postgres](https://www.postgresql.org/)
-- [Redis](https://redis.io/)
+- [Postgres v17](https://www.postgresql.org/)
+- [Redis v7](https://redis.io/)
 - [OpenApi](https://www.openapis.org/)
 - [Jest](https://jestjs.io/)
 
