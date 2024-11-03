@@ -3,16 +3,17 @@ import { User } from "src/db/entity/User";
 import { v4 as uuidv4 } from "uuid";
 import omitBy from "lodash/omitBy";
 import isNil from "lodash/isNil";
-import { AppDataSource } from "src/db";
+import { getAppDataSourceInstance } from "src/db";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">
 >;
 
-const todoRepository = AppDataSource.getRepository(Todo);
+const getTodoRepository = async () =>
+  (await getAppDataSourceInstance()).getRepository(Todo);
 
-export const addTodo = (user: User, description: string) => {
-  return todoRepository.insert({
+export const addTodo = async (user: User, description: string) => {
+  return (await getTodoRepository()).insert({
     user,
     description,
     is_done: false,
@@ -21,51 +22,48 @@ export const addTodo = (user: User, description: string) => {
   });
 };
 
-export const getTodoByUuid = (user: Todo["user"], uuid: Todo["uuid"]) => {
-  return todoRepository.findOneBy({
-    user,
-    uuid,
-  });
+export const getTodoByUuid = async (user: Todo["user"], uuid: Todo["uuid"]) => {
+  return (await getTodoRepository()).findOne({ where: { user, uuid }});
 };
 
-export const getTodoById = (id: Todo["id"]) => {
-  return todoRepository.findOneBy({
+export const getTodoById = async (id: Todo["id"]) => {
+  return (await getTodoRepository()).findOneBy({
     id,
   });
 };
 
-export const getUsersTodo = (user: Todo["user"], id: Todo["id"]) => {
-  return todoRepository.findBy({
+export const getUsersTodo = async (user: Todo["user"], id: Todo["id"]) => {
+  return (await getTodoRepository()).findBy({
     id,
     user,
   });
 };
 
-export const getUsersTodos = (user: Todo["user"]) => {
-  return todoRepository.findBy({
+export const getUsersTodos = async (user: Todo["user"]) => {
+  return (await getTodoRepository()).findBy({
     user,
   });
 };
 
-export const deleteTodos = (user: Todo["user"]) => {
-  return todoRepository.delete({
+export const deleteTodos = async (user: Todo["user"]) => {
+  return (await getTodoRepository()).delete({
     user,
   });
 };
 
-export const deleteTodo = (user: Todo["user"], uuid: Todo["uuid"]) => {
-  return todoRepository.delete({
+export const deleteTodo = async (user: Todo["user"], uuid: Todo["uuid"]) => {
+  return (await getTodoRepository()).delete({
     user,
     uuid,
   });
 };
 
-export const updateTodo = (
+export const updateTodo = async (
   user: Todo["user"],
   uuid: Todo["uuid"],
   body: UpdateTodoRequestBody
 ) => {
-  return todoRepository.update(
+  return (await getTodoRepository()).update(
     { user, uuid },
     {
       ...omitBy(body, isNil),

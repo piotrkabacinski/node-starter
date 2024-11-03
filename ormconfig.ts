@@ -27,13 +27,23 @@ const developmentConfig: DataSourceOptions = {
   port: Number(process.env.POSTGRES_PORT),
 };
 
+const testConfig: DataSourceOptions = {
+  ...developmentConfig,
+  database: `${process.env.POSTGRES_DB}_test`,
+  
+};
+
+const configs: Record<typeof process.env.NODE_ENV, DataSourceOptions> = {
+  development: developmentConfig,
+  production: productionConfig,
+  test: testConfig,
+};
+
 const dataSourceOptions: DataSourceOptions = {
   logging: true,
   migrations: ["src/db/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
-  ...(process.env.NODE_ENV === "production"
-    ? productionConfig
-    : developmentConfig),
+  ...configs[process.env.NODE_ENV],
 };
 
 export default dataSourceOptions;

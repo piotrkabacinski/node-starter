@@ -7,8 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "moduleResolution": "Node",
     "sourceMap": false,
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types"],
@@ -21,7 +21,7 @@
     }
   },
   "lib": ["es2019"],
-  "types": ["@types/node", "./src/types.d.ts"],
+  "types": ["@types/node", "./src/types.d.ts", "@types/jest"],
   "include": ["./src/**/*", "src/**/*"],
   "exclude": ["node_modules"]
 }

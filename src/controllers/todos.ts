@@ -19,6 +19,11 @@ export async function createTodo(req: Request, res: Response) {
   try {
     const user = await userRepository.getUserById(Number(userId));
 
+    if (!user) {
+      res.sendStatus(StatusCodes.BAD_REQUEST);
+      return;
+    }
+
     const newTodo = await todosRepository.addTodo(user, description);
 
     const {
@@ -39,6 +44,12 @@ export async function getTodo(req: Request, res: Response) {
   const { uuid, userId } = req.params;
 
   const user = await userRepository.getUserById(Number(userId));
+
+  if (!user) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+    return;
+  }
+
   const todo = await todosRepository.getTodoByUuid(user, uuid);
 
   if (!todo) {
@@ -71,6 +82,11 @@ export async function deleteTodo(req: Request, res: Response) {
   const user = await userRepository.getUserById(Number(userId));
   const todo = await todosRepository.getTodoByUuid(user, uuid);
 
+  if (!user) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+    return;
+  }
+
   if (!todo) {
     res.sendStatus(StatusCodes.NOT_FOUND);
     return;
@@ -87,6 +103,12 @@ export async function updateTodo(req: Request, res: Response) {
   const { description, is_done }: UpdateTodoRequestBody = req.body;
 
   const user = await userRepository.getUserById(Number(userId));
+
+  if (!user) {
+    res.sendStatus(StatusCodes.NOT_FOUND);
+    return;
+  }
+
   const todo = await todosRepository.getTodoByUuid(user, uuid);
 
   if (!todo) {

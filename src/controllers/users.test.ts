@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { StatusCodes } from "http-status-codes";
 import apiRequest from "src/test/apiRequest";
 import { createTodoRequest, createUserRequest } from "src/test/utils";
@@ -12,12 +11,12 @@ describe("Users", () => {
         StatusCodes.CREATED
       );
 
-      expect(body.email).to.be.equal(email);
+      expect(body.email).toBe(email);
     });
 
     it("Should return 303 if user already exists", async () => {
       await createUserRequest(email);
-      await createUserRequest(email).expect(StatusCodes.SEE_OTHER);
+      await createUserRequest(email).expect(StatusCodes.BAD_REQUEST);
     });
 
     it("Should return 400 if request body is not valid", async () => {
@@ -38,7 +37,7 @@ describe("Users", () => {
         .get(`/users/${id}`)
         .expect(StatusCodes.OK);
 
-      expect(body.email).to.be.equal(email);
+      expect(body.email).toBe(email);
     });
 
     it("Should return 404 if user does not exist", async () => {
@@ -49,7 +48,7 @@ describe("Users", () => {
     it("Should return list of users", async () => {
       const emails = [email, "bar@example.com"];
 
-      for (const email of emails) {
+      for await (const email of emails) {
         await createUserRequest(email);
       }
 
@@ -57,10 +56,10 @@ describe("Users", () => {
         body: { users },
       } = await apiRequest.get("/users").expect(StatusCodes.OK);
 
-      expect(users.length).to.be.equal(emails.length);
+      expect(users.length).toBe(emails.length);
 
       for (const index in emails) {
-        expect(users[index].email).to.be.equal(emails[index]);
+        expect(users[index].email).toBe(emails[index]);
       }
     });
   });

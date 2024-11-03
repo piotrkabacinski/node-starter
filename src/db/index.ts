@@ -5,9 +5,15 @@ import { Todo } from "./entity/Todo";
 
 import ormconfig from "../../ormconfig";
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
   ...ormconfig,
   entities: [User, Todo],
 });
 
-AppDataSource.initialize().catch((error) => console.log(error));
+export const getAppDataSourceInstance = async (): Promise<DataSource> => {
+  if (AppDataSource.isInitialized) return AppDataSource;
+
+  await AppDataSource.initialize();
+
+  return AppDataSource;
+};

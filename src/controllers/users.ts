@@ -50,7 +50,7 @@ export async function createUser(req: Request, res: Response) {
     res.status(StatusCodes.CREATED);
     res.send(formatUserResponse(user));
   } else {
-    res.sendStatus(StatusCodes.SEE_OTHER);
+    res.sendStatus(StatusCodes.BAD_REQUEST);
   }
 }
 
