@@ -3,6 +3,7 @@ declare namespace NodeJS {
     POSTGRES_USER: string;
     POSTGRES_PASSWORD: string;
     POSTGRES_DB: string;
+    POSTGRES_HOST: string;
     NODE_ENV: "development" | "production" | "test";
     REDIS_HOST: string;
     REDIS_PORT: string;

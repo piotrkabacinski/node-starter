@@ -1,54 +1,46 @@
 import { config as envConfig } from "dotenv";
-import { createDatabase, dropDatabase } from "typeorm-extension";
-import { getAppDataSourceInstance } from "./src/db/index";
-import testDbOptions from "./ormconfig";
-import { DataSourceOptions } from "typeorm";
-
-const options: DataSourceOptions = {
-  type: testDbOptions.type as "postgres",
-  database: testDbOptions["database"] as string,
-  host: testDbOptions["host"],
-  password: testDbOptions["password"],
-  username:testDbOptions["username"],
-  port: testDbOptions["port"]
-};
+import { prismaQuery } from "./src/db";
+import { Prisma } from "@prisma/client";
+import { exec } from "child_process";
 
 envConfig();
 
 const clearTestTables = async () => {
-  const ads = await getAppDataSourceInstance();
+  prismaQuery(async (client) => {
+    const tableNames: Array<{ table_name: string }> =
+      await client.$queryRaw(Prisma.sql`SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema='public'
+        AND table_type='BASE TABLE';
+      `);
 
-  const entities = ads.entityMetadatas;
-
-  const queryRunner = ads.createQueryRunner();
-
-  for (const entity of entities) {
-    await queryRunner.query(`TRUNCATE ${entity.tableName} CASCADE;`);
-  }
+    for (const { table_name } of tableNames) {
+      // if (!table_name.startsWith("_prisma")) {
+        await client.$queryRaw(Prisma.sql`TRUNCATE TABLE \"${table_name}\" CASCADE;`);
+      // }
+    }
+  });
 };
 
 beforeAll(async () => {
-  await dropDatabase({
-    options,
-    initialDatabase: "postgres",
-  });
-
-  await createDatabase({
-    options,
-    ifNotExist: false,
-  });
+  exec("NODE_ENV=test POSTGRES_DB=test npm run migration:deploy");
+  // await prismaQuery(async (client) => {
+  //   await client.$queryRaw(
+  //     Prisma.sql`CREATE DATABASE \"${process.env.POSTGRES_DB}\";`
+  //   );
+  // });
 });
+
+// const dropTestDb = async () => {
+//   await prismaQuery(async (client) => {
+//     await client.$queryRaw(
+//       Prisma.sql`DROP DATABASE \"${process.env.POSTGRES_DB}\";'`
+//     );
+//   });
+// };
 
 afterEach(async () => {
   await clearTestTables();
 });
 
-afterAll(async () => {
-  const ads = await getAppDataSourceInstance();
-
-  await ads.destroy();
-
-  await dropDatabase({
-    options,
-  });
-});
+// afterAll(dropTestDb);

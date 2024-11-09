@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import * as usersRepository from "src/db/repository/UserRepository";
-import { StatusCodes } from "http-status-codes";
-import { User } from "src/db/entity/User";
 import * as todosRepository from "src/db/repository/TodoRepository";
+import { StatusCodes } from "http-status-codes";
+import { User } from "@prisma/client";
 
 const formatUserResponse = (
   user: User
@@ -29,7 +29,7 @@ export async function deleteUser(req: Request, res: Response) {
   if (!existingUser) {
     res.sendStatus(StatusCodes.NOT_FOUND);
   } else {
-    await todosRepository.deleteTodos(existingUser);
+    await todosRepository.deleteTodos(existingUser.id);
     await usersRepository.deleteUser(userId);
     res.sendStatus(StatusCodes.NO_CONTENT);
   }
@@ -41,9 +41,7 @@ export async function createUser(req: Request, res: Response) {
   const existingUser = await usersRepository.getUserByEmail(email);
 
   if (!existingUser) {
-    const {
-      identifiers: [{ id }],
-    } = await usersRepository.createUser(email);
+    const { id } = await usersRepository.createUser(email);
 
     const user = await usersRepository.getUserById(id);
 

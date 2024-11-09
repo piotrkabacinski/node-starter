@@ -31,6 +31,25 @@ When installing new dependencies, don't forget to install them within docker-con
 docker-compose run --rm app npm i
 ```
 
+## Prisma
+
+[Docs](https://www.prisma.io/docs/)
+[VS Code extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
+
+In case of change is `prisma/schema.prisma` run:
+
+```sh
+docker-compose run --rm app npm run migration
+```
+
+```sh
+# Create and run migration:
+npm run migration <migration name>
+
+# Apply migrations on production server:
+npm run migration:deploy
+```
+
 ## Tests
 
 ```

@@ -5,7 +5,7 @@ import { createTodoRequest, createUserRequest } from "src/test/utils";
 describe("Users", () => {
   const email = "foo@example.com";
 
-  describe("Create", () => {
+  describe.only("Create", () => {
     it("Should create user if not exist", async () => {
       const { body } = await createUserRequest(email).expect(
         StatusCodes.CREATED

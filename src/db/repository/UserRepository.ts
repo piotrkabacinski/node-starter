@@ -1,33 +1,46 @@
-import { User } from "src/db/entity/User";
-import { getAppDataSourceInstance } from "src/db";
+import { User } from "@prisma/client";
+import { prismaQuery } from "..";
 
-const userRepository = async () => (await getAppDataSourceInstance()).getRepository(User);
+export const createUser = async (email: User["email"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.create({
+        data: {
+          email,
+          created_at: new Date(),
+        },
+      })
+  );
 
-export const createUser = async (email: User["email"]) => {
-  return (await userRepository()).insert({
-    email,
-    created_at: new Date(),
-  });
-};
+export const getUsers = async () =>
+  prismaQuery(async (prisma) => await prisma.user.findMany());
 
-export const getUsers = async () => {
-  return (await userRepository()).find();
-};
+export const getUserByEmail = async (email: User["email"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.findFirst({
+        where: {
+          email,
+        },
+      })
+  );
 
-export const getUserByEmail = async (email: User["email"]) => {
-  return (await userRepository()).findOneBy({
-    email,
-  });
-};
+export const getUserById = async (id: User["id"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.findFirst({
+        where: {
+          id,
+        },
+      })
+  );
 
-export const getUserById = async (id: User["id"]) => {
-  return (await userRepository()).findOneBy({
-    id,
-  });
-};
-
-export const deleteUser = async (id: User["id"]) => {
-  return (await userRepository()).delete({
-    id,
-  });
-};
+export const deleteUser = async (id: User["id"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.delete({
+        where: {
+          id,
+        },
+      })
+  );
