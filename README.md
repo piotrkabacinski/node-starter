@@ -9,6 +9,7 @@ Dockerized Node.js project starter using following stack:
 - [OpenApi](https://www.openapis.org/)
 - [Prisma](https://www.prisma.io/)
 - [Jest](https://jestjs.io/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## Setup
 
