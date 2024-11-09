@@ -1,20 +1,19 @@
-import { DataSourceOptions } from "typeorm";
 import { config as envConfig } from "dotenv";
 import { createDatabase, dropDatabase } from "typeorm-extension";
 import { getAppDataSourceInstance } from "./src/db/index";
-
-envConfig();
-
-const dbName = `${process.env.POSTGRES_DB}_test`;
+import testDbOptions from "./ormconfig";
+import { DataSourceOptions } from "typeorm";
 
 const options: DataSourceOptions = {
-  type: "postgres",
-  database: dbName,
-  host: process.env.POSTGRES_HOST,
-  password: process.env.POSTGRES_PASSWORD,
-  username: process.env.POSTGRES_USER,
-  port: Number(process.env.POSTGRES_PORT),
+  type: testDbOptions.type as "postgres",
+  database: testDbOptions["database"] as string,
+  host: testDbOptions["host"],
+  password: testDbOptions["password"],
+  username:testDbOptions["username"],
+  port: testDbOptions["port"]
 };
+
+envConfig();
 
 const clearTestTables = async () => {
   const ads = await getAppDataSourceInstance();
@@ -31,7 +30,7 @@ const clearTestTables = async () => {
 beforeAll(async () => {
   await dropDatabase({
     options,
-    ifExist: true
+    initialDatabase: "postgres",
   });
 
   await createDatabase({

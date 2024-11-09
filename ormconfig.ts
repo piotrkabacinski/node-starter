@@ -22,16 +22,19 @@ const productionConfig: DataSourceOptions = {
 const developmentConfig: DataSourceOptions = {
   type: "postgres",
   synchronize: true,
+  logging: true,
   database: process.env.POSTGRES_DB,
   host: process.env.POSTGRES_HOST,
   password: process.env.POSTGRES_PASSWORD,
   username: process.env.POSTGRES_USER,
   port: Number(process.env.POSTGRES_PORT),
+
 };
 
 const testConfig: DataSourceOptions = {
   ...developmentConfig,
-  database: `${process.env.POSTGRES_DB}_test`,  
+  database: `${process.env.POSTGRES_DB}_test`,
+  logging: false,
 };
 
 const configs: Record<typeof process.env.NODE_ENV, DataSourceOptions> = {
@@ -41,7 +44,6 @@ const configs: Record<typeof process.env.NODE_ENV, DataSourceOptions> = {
 };
 
 const dataSourceOptions: DataSourceOptions = {
-  logging: true,
   migrations: ["src/db/migration/**/*.ts"],
   entities: [User, Todo],
   ...configs[process.env.NODE_ENV],
