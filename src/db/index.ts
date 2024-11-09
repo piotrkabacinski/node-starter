@@ -4,7 +4,15 @@ import { config as envConfig } from "dotenv";
 
 envConfig();
 
-const datasourceUrl = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:5432/${process.env.POSTGRES_DB}?schema=public`;
+const {
+  POSTGRES_HOST: host,
+  POSTGRES_PORT: port,
+  POSTGRES_USER: user,
+  POSTGRES_PASSWORD: password,
+  POSTGRES_DB: db,
+} = process.env;
+
+export const datasourceUrl = `postgresql://${user}:${password}@${host}:${port}/${db}?schema=public`;
 
 const prisma = new PrismaClient({
   datasourceUrl,

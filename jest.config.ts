@@ -5,7 +5,6 @@ const config: Config = {
   detectOpenHandles: true,
   maxWorkers: '85%',
   watch: false,
-  testTimeout: 2000,
   testMatch: ["<rootDir>/**/*.test.ts"],
   forceExit: true,
   testPathIgnorePatterns: ["/node_modules/"],

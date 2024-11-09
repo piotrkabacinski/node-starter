@@ -1,5 +1,5 @@
 import { config as envConfig } from "dotenv";
-import { prismaQuery } from "./src/db";
+import { datasourceUrl, prismaQuery } from "./src/db";
 import { execSync } from "child_process";
 
 envConfig();
@@ -24,18 +24,20 @@ const clearTestTables = async () => {
   });
 };
 
-afterEach(async () => {
-  await clearTestTables();
-}, 10_000);
-
 beforeAll(() => {
   execSync(
-    "npx prisma migrate dev --name test --schema prisma/schema.test.prisma"
+    `DATABASE_URL=${datasourceUrl} npx prisma migrate dev \
+    --name test`
   );
+});
+
+afterEach(async () => {
+  await clearTestTables();
 });
 
 afterAll(() => {
   execSync(
-    "npx prisma migrate reset --force --schema prisma/schema.test.prisma"
+    `DATABASE_URL=${datasourceUrl} npx prisma migrate reset \
+    --force`
   );
 });
