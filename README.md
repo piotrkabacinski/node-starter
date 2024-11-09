@@ -24,28 +24,31 @@ docker-compose build
 docker-compose up
 ```
 
-When installing new dependencies, don't forget to install them within docker-container:
+Run migrations:
 
+```sh
+docker-compose run --rm app npm run migration
 ```
+
+When installing new dependencies locally do it within container as well:
+
+```sh
 docker-compose run --rm app npm i
 ```
 
 ## Prisma
 
 [Docs](https://www.prisma.io/docs/)
-[VS Code extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
 
-In case of change is `prisma/schema.prisma` run:
+If using VS Code try [prisma extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) for better DX.
 
-```sh
-docker-compose run --rm app npm run migration
-```
+When changing prisma's schema (`prisma/schema.prisma`) run migration command:
 
 ```sh
 # Create and run migration:
 npm run migration <migration name>
 
-# Apply migrations on production server:
+# Apply migrations on production server after deploy:
 npm run migration:deploy
 ```
 
@@ -64,10 +67,6 @@ docker exec -it <container name prefix>_db_1 psql -U postgres
 \c <db name> # Connect to DB
 \dt # Show data base tables
 ```
-
-## Migrations
-
-TODO
 
 ## Redis
 

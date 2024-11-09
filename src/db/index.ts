@@ -1,9 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-import { config as envConfig } from "dotenv";
-
-envConfig();
-
 const {
   POSTGRES_HOST: host,
   POSTGRES_PORT: port,
