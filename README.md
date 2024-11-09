@@ -10,9 +10,12 @@ Dockerized Node.js project starter using following stack:
 - [Prisma](https://www.prisma.io/)
 - [Jest](https://jestjs.io/)
 
-## Docker
+## Setup
 
 ```Bash
+# Clone repo:
+git clone git@github.com:piotrkabacinski/node-starter.git --depth 1
+
 # Create .env file based on template file:
 cp .env.template .env
 
@@ -22,11 +25,8 @@ npm i
 
 docker-compose build
 docker-compose up
-```
 
-Run migrations:
-
-```sh
+# Run migrations:
 docker-compose run --rm app npm run migration
 ```
 
@@ -36,7 +36,7 @@ When installing new dependencies locally do it within container as well:
 docker-compose run --rm app npm i
 ```
 
-## Prisma
+## Prisma ORM
 
 [Docs](https://www.prisma.io/docs/)
 
