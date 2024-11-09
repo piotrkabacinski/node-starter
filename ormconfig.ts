@@ -1,5 +1,7 @@
 import { DataSourceOptions } from "typeorm";
 import { config as envConfig } from "dotenv";
+import { User } from "src/db/entity/User";
+import { Todo } from "src/db/entity/Todo";
 
 envConfig();
 
@@ -29,8 +31,7 @@ const developmentConfig: DataSourceOptions = {
 
 const testConfig: DataSourceOptions = {
   ...developmentConfig,
-  database: `${process.env.POSTGRES_DB}_test`,
-  
+  database: `${process.env.POSTGRES_DB}_test`,  
 };
 
 const configs: Record<typeof process.env.NODE_ENV, DataSourceOptions> = {
@@ -42,7 +43,7 @@ const configs: Record<typeof process.env.NODE_ENV, DataSourceOptions> = {
 const dataSourceOptions: DataSourceOptions = {
   logging: true,
   migrations: ["src/db/migration/**/*.ts"],
-  subscribers: ["src/subscriber/**/*.ts"],
+  entities: [User, Todo],
   ...configs[process.env.NODE_ENV],
 };
 

@@ -29,15 +29,20 @@ const clearTestTables = async () => {
 };
 
 beforeAll(async () => {
+  await dropDatabase({
+    options,
+    ifExist: true
+  });
+
   await createDatabase({
     options,
     ifNotExist: false,
   });
-}, 10_000);
+});
 
 afterEach(async () => {
   await clearTestTables();
-}, 10_000);
+});
 
 afterAll(async () => {
   const ads = await getAppDataSourceInstance();
@@ -47,4 +52,4 @@ afterAll(async () => {
   await dropDatabase({
     options,
   });
-}, 10_000);
+});

@@ -1,5 +1,5 @@
 - [x] Update typeorm package
 - [x] Update redis package
 - [x] Fix tests
-- [ ] Apply redis mock?
 - [ ] Test migrations
+- [ ] env validation
