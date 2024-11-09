@@ -55,13 +55,13 @@ npm run migration:deploy
 
 ## Tests
 
-```
+```sh
 docker-compose run --rm app npm t
 ```
 
 ## Postgres
 
-```Bash
+```sh
 docker exec -it <container name prefix>_db_1 psql -U postgres
 
 \l # List all data bases
@@ -71,7 +71,7 @@ docker exec -it <container name prefix>_db_1 psql -U postgres
 
 ## Redis
 
-```Bash
+```sh
 docker exec -it <container name prefix>_redis_1 redis-cli
 ```
 
