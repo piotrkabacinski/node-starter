@@ -1,65 +1,118 @@
-import { EntityRepository, Repository } from "typeorm";
-import { Todo } from "src/db/entity/Todo";
-import { User } from "src/db/entity/User";
 import { v4 as uuidv4 } from "uuid";
-import omitBy from "lodash/omitBy";
-import isNil from "lodash/isNil";
+import { User, Todo } from "@prisma/client";
+import { prismaQuery } from "..";
+import { isNil, omitBy } from "lodash";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">
 >;
 
-@EntityRepository(Todo)
-export class TodosRepository extends Repository<Todo> {
-  addTodo(user: User, description: string) {
-    return this.insert({
-      user,
-      description,
-      is_done: false,
-      uuid: uuidv4(),
-      created_at: new Date(),
-    });
-  }
+export const addTodo = async ({
+  userId,
+  description,
+}: {
+  userId: User["id"];
+  description: Todo["description"];
+}) =>
+  prismaQuery((client) =>
+    client.todo.create({
+      data: {
+        uuid: uuidv4(),
+        created_at: new Date(),
+        description,
+        is_done: false,
+        userId,
+      },
+    })
+  );
 
-  getTodoByUuid(user: User, uuid: string) {
-    return this.findOne({
-      user,
-      uuid,
-    });
-  }
+export const getTodoByUuid = async ({
+  userId,
+  uuid,
+}: {
+  userId: User["id"];
+  uuid: Todo["uuid"];
+}) =>
+  prismaQuery((client) =>
+    client.todo.findFirst({
+      where: {
+        userId,
+        uuid,
+      },
+    })
+  );
 
-  getTodoById(id: number) {
-    return this.findOne({
-      id,
-    });
-  }
+export const getTodoById = async (id: Todo["id"]) =>
+  prismaQuery((client) =>
+    client.todo.findFirst({
+      where: {
+        id,
+      },
+    })
+  );
 
-  getUsersTodos(user: User) {
-    return this.find({
-      user,
-    });
-  }
+export const getUsersTodo = async (userId: User["id"], id: Todo["id"]) =>
+  prismaQuery((client) =>
+    client.todo.findFirst({
+      where: {
+        id,
+        userId,
+      },
+    })
+  );
 
-  deleteTodo(user: User, uuid: string) {
-    return this.delete({
-      user,
-      uuid,
-    });
-  }
+export const getUsersTodos = async (userId: User["id"]) =>
+  prismaQuery((client) =>
+    client.todo.findMany({
+      where: {
+        userId,
+      },
+    })
+  );
 
-  deleteTodos(user: User) {
-    return this.delete({
-      user,
-    });
-  }
+export const deleteTodos = async (userId: User["id"]) =>
+  prismaQuery((client) =>
+    client.todo.deleteMany({
+      where: {
+        userId,
+      },
+    })
+  );
 
-  updateTodo(user: User, uuid: string, body: UpdateTodoRequestBody) {
-    return this.update(
-      { user, uuid },
-      {
+export const deleteTodo = async ({
+  userId,
+  uuid,
+}: {
+  userId: User["id"];
+  uuid: Todo["uuid"];
+}) =>
+  prismaQuery((client) =>
+    client.todo.delete({  
+      where: {
+        userId,
+        uuid,
+      },
+    })
+  );
+
+export const updateTodo = async ({
+  userId,
+  uuid,
+  body,
+}: {
+  userId: User["id"];
+  uuid: Todo["uuid"];
+  body: UpdateTodoRequestBody;
+}) =>
+  prismaQuery((client) =>
+    client.todo.update({
+      where: {
+        userId,
+        uuid,
+      },
+      data: {
         ...omitBy(body, isNil),
         updated_at: new Date(),
-      }
-    );
-  }
-}
+      },
+    })
+  );

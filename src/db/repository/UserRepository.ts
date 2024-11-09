@@ -1,34 +1,46 @@
-import { EntityRepository, Repository } from "typeorm";
-import { User } from "../entity/User";
+import { User } from "@prisma/client";
+import { prismaQuery } from "..";
 
-@EntityRepository(User)
-export class UsersRepository extends Repository<User> {
-  createUser(email: string) {
-    return this.insert({
-      email,
-      created_at: new Date(),
-    });
-  }
+export const createUser = async (email: User["email"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.create({
+        data: {
+          email,
+          created_at: new Date(),
+        },
+      })
+  );
 
-  getUsers() {
-    return this.find();
-  }
+export const getUsers = async () =>
+  prismaQuery(async (prisma) => await prisma.user.findMany());
 
-  getUserByEmail(email: string) {
-    return this.findOne({
-      email,
-    });
-  }
+export const getUserByEmail = async (email: User["email"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.findFirst({
+        where: {
+          email,
+        },
+      })
+  );
 
-  getUserById(id: number) {
-    return this.findOne({
-      id,
-    });
-  }
+export const getUserById = async (id: User["id"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.findFirst({
+        where: {
+          id,
+        },
+      })
+  );
 
-  deleteUser(id: number) {
-    return this.delete({
-      id,
-    });
-  }
-}
+export const deleteUser = async (id: User["id"]) =>
+  prismaQuery(
+    async (prisma) =>
+      await prisma.user.delete({
+        where: {
+          id,
+        },
+      })
+  );

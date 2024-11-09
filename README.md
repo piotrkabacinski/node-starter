@@ -2,41 +2,66 @@
 
 Dockerized Node.js project starter using following stack:
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [Express.js](https://expressjs.com/)
-- [TypeORM](https://typeorm.io/#/)
-- [Postgres](https://www.postgresql.org/)
-- [Redis](https://redis.io/)
+- [Node 22](https://nodejs.org/en)
+- [Express.js 4](https://expressjs.com/)
+- [Postgres 17](https://www.postgresql.org/)
+- [Redis 7](https://redis.io/)
 - [OpenApi](https://www.openapis.org/)
-- [Mocha](https://mochajs.org/)
+- [Prisma](https://www.prisma.io/)
+- [Jest](https://jestjs.io/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Docker
+## Setup
 
 ```Bash
+# Clone repo:
+git clone git@github.com:piotrkabacinski/node-starter.git --depth 1
+
 # Create .env file based on template file:
 cp .env.template .env
+
+nvm use
 
 npm i
 
 docker-compose build
 docker-compose up
+
+# Run migrations:
+docker-compose run --rm app npm run migration
 ```
 
-When installing new dependencies, don't forget to install them within docker-container:
+When installing new dependencies locally do it within container as well:
 
-```
+```sh
 docker-compose run --rm app npm i
+```
+
+## Prisma ORM
+
+[Docs](https://www.prisma.io/docs/)
+
+If using VS Code try [prisma extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) for better DX.
+
+When changing prisma's schema (`prisma/schema.prisma`) run migration command:
+
+```sh
+# Create and run migration:
+npm run migration <migration name>
+
+# Apply migrations on production server after deploy:
+npm run migration:deploy
 ```
 
 ## Tests
 
-```
+```sh
 docker-compose run --rm app npm t
 ```
 
 ## Postgres
 
-```Bash
+```sh
 docker exec -it <container name prefix>_db_1 psql -U postgres
 
 \l # List all data bases
@@ -44,16 +69,9 @@ docker exec -it <container name prefix>_db_1 psql -U postgres
 \dt # Show data base tables
 ```
 
-## Migrations
-
-1. Set `synchronize: false` in `ormconfig.js`.
-2. Make change in schema (for example update property name in some entity).
-3. [Create migration file](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#generating-migrations): `docker-compose run --rm npm run migration:generate` - typeorm will compare current schema with entities and add required queries to migration file (`src/db/migration/<timestamp>-PostRefactoring`).
-4. Run migrations to apply your change to the database: `docker-compose run --rm npm run migration:run`.
-
 ## Redis
 
-```Bash
+```sh
 docker exec -it <container name prefix>_redis_1 redis-cli
 ```
 

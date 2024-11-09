@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { StatusCodes } from "http-status-codes";
 import apiRequest from "src/test/apiRequest";
 import { createUserRequest, createTodoRequest } from "src/test/utils";
@@ -8,7 +7,7 @@ describe("Todos", () => {
   const description = "Hello, World!";
   const nonExistingUuid = "00000000-0000-0000-0000-000000000000";
 
-  describe("Create", async () => {
+  describe("Create", () => {
     it("Should create new Todo", async () => {
       const {
         body: { id },
@@ -18,7 +17,7 @@ describe("Todos", () => {
     });
   });
 
-  describe("Get", async () => {
+  describe("Get", () => {
     it("Should get users Todo", async () => {
       const {
         body: { id },
@@ -34,10 +33,10 @@ describe("Todos", () => {
         body: { todos },
       } = await apiRequest.get(`/users/${id}/todos`).expect(StatusCodes.OK);
 
-      expect(todos.length).to.be.equal(descriptions.length);
+      expect(todos.length).toEqual(descriptions.length);
 
       for (const index in descriptions) {
-        expect(todos[index].description).to.be.equal(descriptions[index]);
+        expect(todos[index].description).toBe(descriptions[index]);
       }
     });
 
@@ -54,7 +53,7 @@ describe("Todos", () => {
         .get(`/users/${id}/todos/${uuid}`)
         .expect(StatusCodes.OK);
 
-      expect(body.description).to.be.equal(description);
+      expect(body.description).toEqual(description);
     });
 
     it("Should response with 404 when specific user's Todo was not found", async () => {
@@ -76,7 +75,7 @@ describe("Todos", () => {
     });
   });
 
-  describe("Delete", async () => {
+  describe("Delete", () => {
     it("Should delete Todo", async () => {
       const {
         body: { id },
@@ -110,7 +109,7 @@ describe("Todos", () => {
     });
   });
 
-  describe("Update", async () => {
+  describe("Update", () => {
     const requestBody = {
       description: "Updated desc.",
       is_done: true,
@@ -130,9 +129,9 @@ describe("Todos", () => {
         .send(requestBody)
         .expect(StatusCodes.OK);
 
-      expect(body.description).to.be.equal(requestBody.description);
-      expect(body.is_done).to.be.equal(requestBody.is_done);
-      expect(body).to.haveOwnProperty("updated_at");
+      expect(body.description).toBe(requestBody.description);
+      expect(body.is_done).toBe(requestBody.is_done);
+      expect(body).toHaveProperty("updated_at");
     });
 
     it("Should return 404 if user or Todo does not exist", async () => {

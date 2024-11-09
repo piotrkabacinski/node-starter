@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { UsersRepository } from "src/db/repository/UserRepository";
+import * as usersRepository from "src/db/repository/UserRepository";
+import * as todosRepository from "src/db/repository/TodoRepository";
 import { StatusCodes } from "http-status-codes";
-import { User } from "src/db/entity/User";
-import { TodosRepository } from "src/db/repository/TodoRepository";
+import { User } from "@prisma/client";
 
 const formatUserResponse = (
   user: User
@@ -15,8 +14,6 @@ const formatUserResponse = (
 };
 
 export async function getUsers(_, res: Response) {
-  const usersRepository = getCustomRepository(UsersRepository);
-
   const users = await usersRepository.getUsers();
 
   res.send({
@@ -27,44 +24,36 @@ export async function getUsers(_, res: Response) {
 export async function deleteUser(req: Request, res: Response) {
   const userId = Number(req.params.userId);
 
-  const usersRepository = getCustomRepository(UsersRepository);
-  const todosRepository = getCustomRepository(TodosRepository);
-
   const existingUser = await usersRepository.getUserById(userId);
 
-  if (existingUser === undefined) {
+  if (!existingUser) {
     res.sendStatus(StatusCodes.NOT_FOUND);
   } else {
-    await todosRepository.deleteTodos(existingUser);
+    await todosRepository.deleteTodos(existingUser.id);
     await usersRepository.deleteUser(userId);
     res.sendStatus(StatusCodes.NO_CONTENT);
   }
 }
 
 export async function createUser(req: Request, res: Response) {
-  const usersRepository = getCustomRepository(UsersRepository);
   const { email } = req.body;
 
   const existingUser = await usersRepository.getUserByEmail(email);
 
-  if (existingUser === undefined) {
-    const {
-      identifiers: [{ id }],
-    } = await usersRepository.createUser(email);
+  if (!existingUser) {
+    const { id } = await usersRepository.createUser(email);
 
     const user = await usersRepository.getUserById(id);
 
     res.status(StatusCodes.CREATED);
     res.send(formatUserResponse(user));
   } else {
-    res.sendStatus(StatusCodes.SEE_OTHER);
+    res.sendStatus(StatusCodes.BAD_REQUEST);
   }
 }
 
 export async function getUser(req: Request, res: Response) {
   const userId = Number(req.params.userId);
-
-  const usersRepository = getCustomRepository(UsersRepository);
 
   const user = await usersRepository.getUserById(userId);
 

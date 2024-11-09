@@ -1,15 +1,13 @@
-import redis from "redis";
-import url from "url";
+import { createClient } from "redis";
 
 const getConfig = () => {
   if (process.env.NODE_ENV !== "production") {
     return {
-      host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT),
+      url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
     };
   }
 
-  const { port, hostname, href } = url.parse(process.env.REDIS_URL);
+  const { port, hostname, href } = new URL(process.env.REDIS_URL);
 
   return {
     no_ready_check: true,
@@ -19,7 +17,7 @@ const getConfig = () => {
   };
 };
 
-const client = redis.createClient(getConfig());
+const client = createClient(getConfig());
 
 // For easier mocking, created redis client is wrapped in a function:
 export const getRedisClient = () => client;

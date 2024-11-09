@@ -1,6 +1,0 @@
-// https://github.com/mochajs/mocha/tree/master/example/config
-
-{
-  "file": "./src/test/setupTests.ts",
-  "spec": "./src/**/*.spec.ts"
-}
