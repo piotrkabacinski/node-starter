@@ -1,46 +1,41 @@
 import { config as envConfig } from "dotenv";
 import { prismaQuery } from "./src/db";
-import { Prisma } from "@prisma/client";
-import { exec } from "child_process";
+import { execSync } from "child_process";
 
 envConfig();
 
 const clearTestTables = async () => {
-  prismaQuery(async (client) => {
+  await prismaQuery(async (client) => {
     const tableNames: Array<{ table_name: string }> =
-      await client.$queryRaw(Prisma.sql`SELECT table_name
+      await client.$queryRaw`SELECT table_name
         FROM information_schema.tables
         WHERE table_schema='public'
         AND table_type='BASE TABLE';
-      `);
+      `;
 
-    for (const { table_name } of tableNames) {
-      // if (!table_name.startsWith("_prisma")) {
-        await client.$queryRaw(Prisma.sql`TRUNCATE TABLE \"${table_name}\" CASCADE;`);
-      // }
+    for (const tableName of tableNames) {
+      if (tableName.table_name.startsWith("_prisma_")) continue;
+
+      // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-data-with-raw-sql--truncate
+      await client.$executeRawUnsafe(
+        `TRUNCATE TABLE "${tableName.table_name}" CASCADE;`
+      );
     }
   });
 };
 
-beforeAll(async () => {
-  exec("NODE_ENV=test POSTGRES_DB=test npm run migration:deploy");
-  // await prismaQuery(async (client) => {
-  //   await client.$queryRaw(
-  //     Prisma.sql`CREATE DATABASE \"${process.env.POSTGRES_DB}\";`
-  //   );
-  // });
-});
-
-// const dropTestDb = async () => {
-//   await prismaQuery(async (client) => {
-//     await client.$queryRaw(
-//       Prisma.sql`DROP DATABASE \"${process.env.POSTGRES_DB}\";'`
-//     );
-//   });
-// };
-
 afterEach(async () => {
   await clearTestTables();
+}, 10_000);
+
+beforeAll(() => {
+  execSync(
+    "npx prisma migrate dev --name test --schema prisma/schema.test.prisma"
+  );
 });
 
-// afterAll(dropTestDb);
+afterAll(() => {
+  execSync(
+    "npx prisma migrate reset --force --schema prisma/schema.test.prisma"
+  );
+});

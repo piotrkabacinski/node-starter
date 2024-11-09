@@ -87,7 +87,7 @@ export const deleteTodo = async ({
   uuid: Todo["uuid"];
 }) =>
   prismaQuery((client) =>
-    client.todo.deleteMany({
+    client.todo.delete({  
       where: {
         userId,
         uuid,

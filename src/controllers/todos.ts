@@ -74,12 +74,14 @@ export async function deleteTodo(req: Request, res: Response) {
   const { uuid, userId } = req.params;
 
   const user = await userRepository.getUserById(Number(userId));
-  const todo = await todosRepository.getTodoByUuid({ userId: user.id, uuid });
 
   if (!user) {
     res.sendStatus(StatusCodes.NOT_FOUND);
     return;
   }
+  
+  const todo = await todosRepository.getTodoByUuid({ userId: user.id, uuid });
+
 
   if (!todo) {
     res.sendStatus(StatusCodes.NOT_FOUND);

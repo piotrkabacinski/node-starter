@@ -6,21 +6,24 @@ envConfig();
 
 const datasourceUrl = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:5432/${process.env.POSTGRES_DB}?schema=public`;
 
-console.log(datasourceUrl);
-
-export const prisma = new PrismaClient({
+const prisma = new PrismaClient({
   datasourceUrl,
-  log: process.env.NODE_ENV !== "production" ? ['query', 'info', 'warn', 'error'] : undefined,
+  log: process.env.NODE_ENV === "development" ? ['query', 'info', 'warn', 'error'] : undefined,
 });
 
-export const prismaQuery = async <T>(query: (client: typeof prisma) => T) => {
+export const createPrismaQuery = (prismaClient: PrismaClient) => async <T>(query: (client: typeof prisma) => T) => {
   try {
-    await prisma.$connect();
+    await prismaClient.$connect();
     return await query(prisma);
   } catch (err) {
-    console.log(err);
-    // process.exit(1);
+    console.error(err);
+
+    if (process.env.NODE_ENV === "production") {
+      process.exit(1);
+    }
   } finally {
-    await prisma.$disconnect();
+    await prismaClient.$disconnect();
   }
 };
+
+export const prismaQuery = createPrismaQuery(prisma);

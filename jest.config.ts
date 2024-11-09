@@ -6,7 +6,7 @@ const config: Config = {
   maxWorkers: '85%',
   watch: false,
   testTimeout: 2000,
-  testMatch: ["<rootDir>/**/users.test.ts"],
+  testMatch: ["<rootDir>/**/*.test.ts"],
   forceExit: true,
   testPathIgnorePatterns: ["/node_modules/"],
   setupFilesAfterEnv: ["./jest.setup.ts"],
