@@ -1,16 +1,21 @@
 import { Request, Response } from "express";
-import omit from "lodash/omit";
 import { Todo } from "@prisma/client";
 import { type UpdateTodoRequestBody } from "src/db/repository/TodoRepository";
 import * as todosRepository from "src/db/repository/TodoRepository";
 import * as userRepository from "src/db/repository/UserRepository";
 import { StatusCodes } from "http-status-codes";
 
-const formatTodo = (todo: Todo) => ({
-  ...omit(todo, "id"),
-  created_at: todo.created_at.toISOString(),
-  updated_at: todo.updated_at ? todo.updated_at.toISOString() : undefined,
-});
+const formatTodo = (todo: Todo) => {
+  const copyTodo = { ...todo };
+
+  delete copyTodo["id"];
+
+  return {
+    ...copyTodo,
+    created_at: todo.created_at.toISOString(),
+    updated_at: todo.updated_at ? todo.updated_at.toISOString() : undefined,
+  };
+};
 
 export async function createTodo(req: Request, res: Response) {
   const { userId } = req.params;
@@ -79,9 +84,8 @@ export async function deleteTodo(req: Request, res: Response) {
     res.sendStatus(StatusCodes.NOT_FOUND);
     return;
   }
-  
-  const todo = await todosRepository.getTodoByUuid({ userId: user.id, uuid });
 
+  const todo = await todosRepository.getTodoByUuid({ userId: user.id, uuid });
 
   if (!todo) {
     res.sendStatus(StatusCodes.NOT_FOUND);

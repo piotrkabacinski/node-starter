@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 import { User, Todo } from "@prisma/client";
 import { prismaQuery } from "..";
-import { isNil, omitBy } from "lodash";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">
@@ -17,7 +16,7 @@ export const addTodo = async ({
   prismaQuery((client) =>
     client.todo.create({
       data: {
-        uuid: uuidv4(),
+        uuid: randomUUID(),
         created_at: new Date(),
         description,
         is_done: false,
@@ -103,16 +102,23 @@ export const updateTodo = async ({
   userId: User["id"];
   uuid: Todo["uuid"];
   body: UpdateTodoRequestBody;
-}) =>
-  prismaQuery((client) =>
+}) => {
+  const data = {
+    updated_at: new Date(),
+    ...body,
+  };
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (!value) delete data[key]
+  });
+
+  return prismaQuery((client) =>
     client.todo.update({
       where: {
         userId,
         uuid,
       },
-      data: {
-        ...omitBy(body, isNil),
-        updated_at: new Date(),
-      },
+      data
     })
   );
+};
