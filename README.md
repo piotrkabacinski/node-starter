@@ -43,7 +43,7 @@ docker-compose run --rm app npm i
 
 If using VS Code try [prisma extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) for better DX.
 
-When changing prisma's schema (`prisma/schema.prisma`) run migration command:
+When changing prisma's schema (`src/db/schema.prisma`) run migration command:
 
 ```sh
 # Create and run migration:

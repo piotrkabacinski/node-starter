@@ -50,6 +50,9 @@
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.13.0"
   },
+  "prisma": {
+    "schema": "src/db/schema.prisma"
+  },
   "engine": {
     "node": "22.11"
   }
