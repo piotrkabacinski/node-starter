@@ -13,6 +13,17 @@ jest.mock("src/redisClient", () => ({
   }),
 }));
 
+jest.mock("bullmq", () => {
+  return {
+    Queue: jest.fn(() => ({
+      add: jest.fn(),
+    })),
+    Worker: jest.fn(() => ({
+      on: jest.fn(),
+    })),
+  };
+});
+
 const clearTestTables = async () => {
   await prismaQuery(async (client) => {
     for (const table of tables) {

@@ -3,13 +3,14 @@
 Dockerized Node.js project starter using following stack:
 
 - [Node 22](https://nodejs.org/en)
-- [Express.js 4](https://expressjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Postgres 17](https://www.postgresql.org/)
 - [Redis 7](https://redis.io/)
 - [OpenApi](https://www.openapis.org/)
+- [Express.js 4](https://expressjs.com/)
+- [BullMQ](https://docs.bullmq.io/)
 - [Prisma](https://www.prisma.io/)
 - [Jest](https://jestjs.io/)
-- [TypeScript](https://www.typescriptlang.org/)
 
 ## Setup
 
