@@ -26,10 +26,12 @@ nvm use
 npm i
 
 docker-compose build
-docker-compose up
 
 # Run migrations:
 docker-compose run --rm app npm run migration:deploy
+
+# Run server:
+docker-compose up
 ```
 
 When installing new dependencies locally do it within container as well:
