@@ -8,8 +8,8 @@
     "test": "NODE_ENV=test POSTGRES_DB=test jest --config ./jest.config.ts",
     "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
     "lint": "eslint ./src/**/*.ts",
-    "migration:deploy": "prisma migrate deploy",
-    "migration": "prisma generate dev --name",
+    "migration:deploy": "source bin/database_url.sh && prisma migrate deploy",
+    "migration": "source bin/database_url.sh && prisma generate dev --name",
     "serve": "NODE_ENV=development tsx watch ./src/index.ts",
     "start": "APP_PORT=$PORT node -r tsconfig-paths/register dist/index.js"
   },

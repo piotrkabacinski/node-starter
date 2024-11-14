@@ -29,7 +29,7 @@ docker-compose build
 docker-compose up
 
 # Run migrations:
-docker-compose run --rm app npm run migration
+docker-compose run --rm app npm run migration:deploy
 ```
 
 When installing new dependencies locally do it within container as well:

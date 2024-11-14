@@ -51,11 +51,11 @@ beforeAll(async () => {
       .filter(({ table_name }) => !table_name.startsWith("_prisma_"))
       .map(({ table_name }) => table_name);
   });
-});
+}, 10_000);
 
 afterEach(async () => {
   await clearTestTables();
-});
+}, 10_000);
 
 afterAll(() => {
   // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-records-with-prisma-migrate
@@ -65,4 +65,4 @@ afterAll(() => {
   );
 
   jest.resetAllMocks();
-});
+}, 10_000);
