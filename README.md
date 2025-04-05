@@ -7,7 +7,7 @@ Dockerized Node.js project starter using following stack:
 - [Postgres 17](https://www.postgresql.org/)
 - [Redis 7](https://redis.io/)
 - [OpenApi](https://www.openapis.org/)
-- [Express.js 4](https://expressjs.com/)
+- [Express.js 5](https://expressjs.com/)
 - [BullMQ](https://docs.bullmq.io/)
 - [Prisma](https://www.prisma.io/)
 - [Jest](https://jestjs.io/)
@@ -25,19 +25,19 @@ nvm use
 
 npm i
 
-docker-compose build
+docker compose build
 
 # Run migrations:
-docker-compose run --rm app npm run migration:deploy
+docker compose run --rm app npm run migration:deploy
 
 # Run server:
-docker-compose up
+docker compose up
 ```
 
 When installing new dependencies locally do it within container as well:
 
 ```sh
-docker-compose run --rm app npm i
+docker compose run --rm app npm i
 ```
 
 ## Prisma ORM
@@ -59,7 +59,7 @@ npm run migration:deploy
 ## Tests
 
 ```sh
-docker-compose run --rm app npm t
+docker compose run --rm app npm t
 ```
 
 ## Postgres
