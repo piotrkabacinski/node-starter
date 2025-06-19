@@ -1,8 +1,7 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 import morgan from "morgan";
 import { middleware } from "express-openapi-validator";
 import cookieParser from "cookie-parser";
-
 import rootRouter from "./routes/root";
 import usersRouter from "./routes/users";
 
@@ -21,7 +20,7 @@ export default () => {
   app.use(express.json()).use(
     express.urlencoded({
       extended: true,
-    })
+    }),
   );
 
   if (!isTest) {
@@ -33,7 +32,7 @@ export default () => {
       apiSpec: `${srcPath}/openapi.yaml`,
       validateRequests: true,
       validateResponses: isTest,
-    })
+    }),
   );
 
   app.use((_req, res, next) => {
@@ -45,16 +44,22 @@ export default () => {
   app.use("/", rootRouter).use("/users", usersRouter);
 
   // OpenApi error handler
-  app.use((err, _req, res, _next) => {
-    if (!isTest) {
-      console.error(err);
-    }
+  app.use(
+    (
+      err: { message: string; errors: unknown; status: number },
+      _req: Request,
+      res: Response,
+    ) => {
+      if (!isTest) {
+        console.error(err);
+      }
 
-    res.status(err.status).json({
-      message: err.message,
-      errors: err.errors,
-    });
-  });
+      res.status(err.status).json({
+        message: err.message,
+        errors: err.errors,
+      });
+    },
+  );
 
   return app;
 };
