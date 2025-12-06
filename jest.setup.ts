@@ -36,7 +36,7 @@ const clearTestTables = async () => {
 beforeAll(async () => {
   execSync(
     `DATABASE_URL=${datasourceUrl} npx prisma migrate dev \
-    --name test`
+    --name test`,
   );
 
   await prismaQuery(async (client) => {
@@ -61,7 +61,7 @@ afterAll(() => {
   // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-records-with-prisma-migrate
   execSync(
     `DATABASE_URL=${datasourceUrl} npx prisma migrate reset \
-    --force`
+    --force`,
   );
 
   jest.resetAllMocks();
