@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "CommonJS",
+    "module": "ES2022",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
@@ -15,9 +15,7 @@
     "isolatedModules": true,
     "baseUrl": "./",
     "paths": {
-      "src/*": [
-        "./src/*"
-      ],
+      "src/*": ["./src/*"]
     }
   },
   "lib": ["es2019"],

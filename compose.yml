@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-    command: npm run serve
+    command: pnpm run serve
     env_file:
       - .env
     ports:

@@ -4,8 +4,9 @@ import { middleware } from "express-openapi-validator";
 import cookieParser from "cookie-parser";
 import rootRouter from "./routes/root";
 import usersRouter from "./routes/users";
+import { getDirPath } from "./utils/getDirPath";
 
-const srcPath = `${__dirname}/../src`;
+const srcPath = `${getDirPath(import.meta.url)}/../src`;
 
 const { NODE_ENV: env } = process.env;
 const isTest = env === "test";

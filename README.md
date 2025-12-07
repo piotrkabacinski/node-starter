@@ -23,12 +23,12 @@ cp .env.template .env
 
 nvm use
 
-npm i
+pnpm i
 
 docker compose build
 
 # Run migrations:
-docker compose run --rm app npm run migration:deploy
+docker compose run --rm app pnpm run migration:deploy
 
 # Run server:
 docker compose up
@@ -37,7 +37,7 @@ docker compose up
 When installing new dependencies locally do it within container as well:
 
 ```sh
-docker compose run --rm app npm i
+docker compose run --rm app pnpm i
 ```
 
 ## Prisma ORM
@@ -50,16 +50,16 @@ When changing prisma's schema (`src/db/schema.prisma`) run migration command:
 
 ```sh
 # Create and run migration:
-npm run migration <migration name>
+pnpm run migration <migration name>
 
 # Apply migrations on production server after deploy:
-npm run migration:deploy
+pnpm run migration:deploy
 ```
 
 ## Tests
 
 ```sh
-docker compose run --rm app npm t
+docker compose run --rm app pnpm t
 ```
 
 ## Postgres

@@ -4,6 +4,7 @@
   "author": "Piotr Kabaciński",
   "description": "Hello, Node!",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "test": "NODE_ENV=test POSTGRES_DB=test jest --config ./jest.config.ts",
     "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
@@ -41,7 +42,6 @@
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "24.10.1",
-    "@types/redis": "^4.0.11",
     "@types/supertest": "^6.0.3",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
