@@ -3,7 +3,6 @@ services:
     build:
       context: .
     command: pnpm run serve
-    # command: echo "Run server"
     env_file:
       - .env
     ports:
