@@ -1,0 +1,21 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "jsc": {
+    "target": "es2022",
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false
+  },
+  "externalHelpers": true
+  },
+  "module": {
+    "type": "es6",
+    "resolveFully": true
+  },
+  "exclude": [".*\\.test\\.ts$", ".*\\.map$", ".*\\.d.ts", "test/"],
+  "sourceMaps": false
+}

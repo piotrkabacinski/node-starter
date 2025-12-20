@@ -6,7 +6,7 @@ import { getRedisClient } from "src/redisClient";
 const visitsKey = "visits";
 
 const incrementVisits = async (
-  redisClient: ReturnType<typeof createClient>
+  redisClient: ReturnType<typeof createClient>,
 ): Promise<number> => {
   const value = await redisClient.get(visitsKey);
 
@@ -30,7 +30,7 @@ export default async function (_, res: Response) {
   const visits = await incrementVisits(client);
 
   await tasksQueue.add("test", {
-    test: true
+    test: true,
   });
 
   res.send({
