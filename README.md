@@ -21,11 +21,13 @@ git clone git@github.com:piotrkabacinski/node-starter.git --depth 1
 # Create .env file based on template file:
 cp .env.template .env
 
-nvm use
-
-pnpm i
-
 docker compose build
+
+# Install dependencies:
+docker compose run --rm app pnpm i
+
+# Create Prisma client:
+docker compose run --rm app pnpx prisma generate
 
 # Run migrations:
 docker compose run --rm app pnpm run migration:deploy

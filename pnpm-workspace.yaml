@@ -1,0 +1,7 @@
+onlyBuiltDependencies:
+  - "@prisma/engines"
+  - "@swc/core"
+  - esbuild
+  - prisma
+  - msgpackr-extract
+  - unrs-resolver

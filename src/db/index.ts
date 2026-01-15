@@ -1,5 +1,6 @@
 import { PrismaClient } from "./client";
-import { PrismaClientOptions } from "./client/runtime/library";
+import { PrismaClientOptions } from "./client/runtime/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const {
   POSTGRES_HOST: host,
@@ -17,8 +18,10 @@ const logs: Record<typeof process.env.NODE_ENV, PrismaClientOptions["log"]> = {
   test: ["warn", "error"],
 };
 
+const adapter = new PrismaPg({ connectionString: datasourceUrl });
+
 const prisma = new PrismaClient({
-  datasourceUrl,
+  adapter,
   log: logs[process.env.NODE_ENV],
 });
 

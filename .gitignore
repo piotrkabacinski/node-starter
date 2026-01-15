@@ -5,3 +5,4 @@ node_modules
 .vscode
 src/db/client/*
 .pnpm-store
+**/.DS_Store
