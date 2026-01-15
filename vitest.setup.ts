@@ -39,7 +39,7 @@ const clearTestTables = async () => {
 };
 
 beforeAll(async () => {
-  execSync(`DATABASE_URL=${datasourceUrl} pnpx prisma migrate dev --name test`);
+  execSync(`DATABASE_URL=${datasourceUrl} prisma migrate dev --name test`);
 
   await prismaQuery(async (client) => {
     const tableNames: Array<{ table_name: string }> =
@@ -62,7 +62,7 @@ afterEach(async () => {
 afterAll(() => {
   // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-records-with-prisma-migrate
   execSync(
-    `DATABASE_URL=${datasourceUrl} pnpx prisma migrate reset \
+    `DATABASE_URL=${datasourceUrl} prisma migrate reset \
     --force`,
   );
 
