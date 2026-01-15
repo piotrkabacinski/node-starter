@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import * as usersRepository from "src/db/repository/UserRepository";
 import * as todosRepository from "src/db/repository/TodoRepository";
 import { StatusCodes } from "http-status-codes";
-import { User } from "@prisma/client";
+import { User } from "src/db/client";
 
 const formatUserResponse = (
-  user: User
+  user: User,
 ): Omit<User, "created_at"> & { created_at: string } => {
   return {
     ...user,

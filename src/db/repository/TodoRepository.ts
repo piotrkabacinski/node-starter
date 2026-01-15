@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { User, Todo } from "@prisma/client";
 import { prismaQuery } from "..";
+import { Todo, User } from "../client";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">
@@ -22,7 +22,7 @@ export const addTodo = async ({
         is_done: false,
         userId,
       },
-    })
+    }),
   );
 
 export const getTodoByUuid = async ({
@@ -38,7 +38,7 @@ export const getTodoByUuid = async ({
         userId,
         uuid,
       },
-    })
+    }),
   );
 
 export const getTodoById = async (id: Todo["id"]) =>
@@ -47,7 +47,7 @@ export const getTodoById = async (id: Todo["id"]) =>
       where: {
         id,
       },
-    })
+    }),
   );
 
 export const getUsersTodo = async (userId: User["id"], id: Todo["id"]) =>
@@ -57,7 +57,7 @@ export const getUsersTodo = async (userId: User["id"], id: Todo["id"]) =>
         id,
         userId,
       },
-    })
+    }),
   );
 
 export const getUsersTodos = async (userId: User["id"]) =>
@@ -66,7 +66,7 @@ export const getUsersTodos = async (userId: User["id"]) =>
       where: {
         userId,
       },
-    })
+    }),
   );
 
 export const deleteTodos = async (userId: User["id"]) =>
@@ -75,7 +75,7 @@ export const deleteTodos = async (userId: User["id"]) =>
       where: {
         userId,
       },
-    })
+    }),
   );
 
 export const deleteTodo = async ({
@@ -86,12 +86,12 @@ export const deleteTodo = async ({
   uuid: Todo["uuid"];
 }) =>
   prismaQuery((client) =>
-    client.todo.delete({  
+    client.todo.delete({
       where: {
         userId,
         uuid,
       },
-    })
+    }),
   );
 
 export const updateTodo = async ({
@@ -109,7 +109,7 @@ export const updateTodo = async ({
   };
 
   Object.entries(data).forEach(([key, value]) => {
-    if (!value) delete data[key]
+    if (!value) delete data[key];
   });
 
   return prismaQuery((client) =>
@@ -118,7 +118,7 @@ export const updateTodo = async ({
         userId,
         uuid,
       },
-      data
-    })
+      data,
+    }),
   );
 };

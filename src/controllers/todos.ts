@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Todo } from "@prisma/client";
+import { Todo } from "src/db/client";
 import { type UpdateTodoRequestBody } from "src/db/repository/TodoRepository";
 import * as todosRepository from "src/db/repository/TodoRepository";
 import * as userRepository from "src/db/repository/UserRepository";

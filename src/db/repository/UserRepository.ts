@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "../client";
 import { prismaQuery } from "..";
 
 export const createUser = async (email: User["email"]) =>
@@ -9,7 +9,7 @@ export const createUser = async (email: User["email"]) =>
           email,
           created_at: new Date(),
         },
-      })
+      }),
   );
 
 export const getUsers = async () =>
@@ -22,7 +22,7 @@ export const getUserByEmail = async (email: User["email"]) =>
         where: {
           email,
         },
-      })
+      }),
   );
 
 export const getUserById = async (id: User["id"]) =>
@@ -32,7 +32,7 @@ export const getUserById = async (id: User["id"]) =>
         where: {
           id,
         },
-      })
+      }),
   );
 
 export const deleteUser = async (id: User["id"]) =>
@@ -42,5 +42,5 @@ export const deleteUser = async (id: User["id"]) =>
         where: {
           id,
         },
-      })
+      }),
   );

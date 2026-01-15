@@ -8,6 +8,7 @@
   "scripts": {
     "test": "NODE_ENV=test POSTGRES_DB=test jest --config ./jest.config.ts",
     "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
+    "tsc": "tsc",
     "lint": "eslint ./src/**/*.ts",
     "migration:deploy": "prisma migrate deploy",
     "migration": "prisma generate dev --name",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/piotrkabacinski/node-starter#readme",
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client-runtime-utils": "^7.2.0",
     "bullmq": "^5.66.5",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
