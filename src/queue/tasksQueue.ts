@@ -20,7 +20,7 @@ export const tasksWorker = new Worker(
     connection,
     removeOnComplete: { count: 100 },
     removeOnFail: { count: 50 },
-  }
+  },
 );
 
 tasksWorker.on("completed", (job) => {

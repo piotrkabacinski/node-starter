@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { StatusCodes } from "http-status-codes";
 import apiRequest from "src/test/apiRequest";
 import { createTodoRequest, createUserRequest } from "src/test/utils";
@@ -8,7 +9,7 @@ describe("Users", () => {
   describe("Create", () => {
     it("Should create user if not exist", async () => {
       const { body } = await createUserRequest(email).expect(
-        StatusCodes.CREATED
+        StatusCodes.CREATED,
       );
 
       expect(body.email).toBe(email);

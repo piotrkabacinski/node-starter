@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "test": "NODE_ENV=test POSTGRES_DB=test jest --config ./jest.config.ts",
+    "test": "NODE_ENV=test POSTGRES_DB=test vitest run",
     "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
     "tsc": "tsc",
     "lint": "eslint ./src/**/*.ts",
@@ -46,21 +46,18 @@
     "@swc/core": "^1.15.8",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/express": "^5.0.6",
-    "@types/jest": "^30.0.0",
     "@types/node": "25.0.8",
     "@types/supertest": "^6.0.3",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.2",
     "globals": "^17.0.0",
-    "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "supertest": "^7.2.2",
-    "ts-jest": "^29.4.6",
-    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.0"
+    "typescript-eslint": "^8.53.0",
+    "vitest": "^4.0.17"
   },
   "engine": {
     "node": "24.x"
