@@ -44,10 +44,13 @@ swcDir({
     onWatchReady: () => {
       console.log("Watching's ready...");
 
-      spawn("pnpm", ["nodemon"], {
-        stdio: "inherit",
-        shell: true,
-      });
+      spawn(
+        "node",
+        [`--watch-path=${outDir}`, "--env-file=.env", `${outDir}/index.js`],
+        {
+          stdio: "inherit",
+        },
+      );
     },
   },
 });
