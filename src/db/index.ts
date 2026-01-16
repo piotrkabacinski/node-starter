@@ -1,16 +1,7 @@
 import { PrismaClient } from "./client/index.js";
 import { PrismaClientOptions } from "./client/runtime/client.js";
 import { PrismaPg } from "@prisma/adapter-pg";
-
-const {
-  POSTGRES_HOST: host,
-  POSTGRES_PORT: port,
-  POSTGRES_USER: user,
-  POSTGRES_PASSWORD: password,
-  POSTGRES_DB: db,
-} = process.env;
-
-export const datasourceUrl = `postgresql://${user}:${password}@${host}:${port}/${db}?schema=public`;
+import { datasourceUrl } from "./datasourceUrl.js";
 
 const logs: Record<typeof process.env.NODE_ENV, PrismaClientOptions["log"]> = {
   development: ["error"],
