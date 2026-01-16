@@ -8,7 +8,7 @@
   "scripts": {
     "test": "NODE_ENV=test POSTGRES_DB=test vitest run",
     "build": "rm -rf ./dist && tsc -p tsconfig.prod.json",
-    "tsc": "tsc",
+    "tsc": "tsc -p tsconfig.prod.json",
     "lint": "eslint ./src/**/*.ts",
     "migration:deploy": "prisma migrate deploy",
     "migration": "prisma generate dev --name",

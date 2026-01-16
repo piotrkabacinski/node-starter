@@ -2,24 +2,24 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "ES2022",
+    "module": "NodeNext",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
     "target": "ES2022",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "sourceMap": false,
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types"],
     "isolatedModules": true,
     "baseUrl": "./",
     "paths": {
-      "src/*": ["./src/*"]
-    }
+      "src/*": ["./src/*"],
+    },
   },
   "lib": ["es2019"],
-  "types": ["@types/node", "./src/types.d.ts", "@types/jest"],
+  "types": ["@types/node", "./src/types.d.ts"],
   "include": ["./src/**/*", "src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

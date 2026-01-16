@@ -1,5 +1,5 @@
-import { PrismaClient } from "./client";
-import { PrismaClientOptions } from "./client/runtime/client";
+import { PrismaClient } from "./client/index.js";
+import { PrismaClientOptions } from "./client/runtime/client.js";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const {

@@ -1,6 +1,6 @@
 import { Job, Queue, Worker } from "bullmq";
-import { connection } from "./connection";
-import { sleep } from "src/utils/sleep";
+import { connection } from "./connection.js";
+import { sleep } from "src/utils/sleep.js";
 
 export const tasksQueueName = "tasks";
 

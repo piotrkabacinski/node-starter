@@ -2,9 +2,9 @@ import express, { type Request, type Response } from "express";
 import morgan from "morgan";
 import { middleware } from "express-openapi-validator";
 import cookieParser from "cookie-parser";
-import rootRouter from "./routes/root";
-import usersRouter from "./routes/users";
-import { getDirPath } from "./utils/getDirPath";
+import rootRouter from "./routes/root.js";
+import usersRouter from "./routes/users.js";
+import { getDirPath } from "./utils/getDirPath.js";
 
 const srcPath = `${getDirPath(import.meta.url)}/../src`;
 

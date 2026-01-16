@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { prismaQuery } from "..";
-import { Todo, User } from "../client";
+import { prismaQuery } from "../index.js";
+import { Todo, User } from "../client/index.js";
 
 export type UpdateTodoRequestBody = Partial<
   Pick<Todo, "description" | "is_done">

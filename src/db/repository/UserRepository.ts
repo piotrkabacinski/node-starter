@@ -1,5 +1,5 @@
-import { User } from "../client";
-import { prismaQuery } from "..";
+import { User } from "../client/index.js";
+import { prismaQuery } from "../index.js";
 
 export const createUser = async (email: User["email"]) =>
   prismaQuery(

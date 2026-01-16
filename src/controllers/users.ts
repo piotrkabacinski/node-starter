@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import * as usersRepository from "src/db/repository/UserRepository";
-import * as todosRepository from "src/db/repository/TodoRepository";
+import * as usersRepository from "src/db/repository/UserRepository.js";
+import * as todosRepository from "src/db/repository/TodoRepository.js";
 import { StatusCodes } from "http-status-codes";
-import { User } from "src/db/client";
+import { User } from "src/db/client/index.js";
 
 const formatUserResponse = (
   user: User,

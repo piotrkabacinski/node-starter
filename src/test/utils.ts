@@ -1,8 +1,8 @@
-import apiRequest from "./apiRequest";
+import apiRequest from "./apiRequest.js";
 
 export const createTodoRequest = (
   userId: string | number,
-  description: string
+  description: string,
 ) => {
   return apiRequest.post(`/users/${userId}/todos`).send({ description });
 };

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { StatusCodes } from "http-status-codes";
-import apiRequest from "src/test/apiRequest";
-import { createTodoRequest, createUserRequest } from "src/test/utils";
+import apiRequest from "src/test/apiRequest.js";
+import { createTodoRequest, createUserRequest } from "src/test/utils.js";
 
 describe("Users", () => {
   const email = "foo@example.com";

@@ -10,7 +10,7 @@ Dockerized Node.js project starter using following stack:
 - [Express.js 5](https://expressjs.com/)
 - [BullMQ](https://docs.bullmq.io/)
 - [Prisma](https://www.prisma.io/)
-- [Jest](https://jestjs.io/)
+- [Vitest](https://vitest.dev/)
 
 ## Setup
 

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { Todo } from "src/db/client";
-import { type UpdateTodoRequestBody } from "src/db/repository/TodoRepository";
-import * as todosRepository from "src/db/repository/TodoRepository";
-import * as userRepository from "src/db/repository/UserRepository";
+import { Todo } from "src/db/client/index.js";
 import { StatusCodes } from "http-status-codes";
+import { type UpdateTodoRequestBody } from "src/db/repository/TodoRepository.js";
+import * as todosRepository from "src/db/repository/TodoRepository.js";
+import * as userRepository from "src/db/repository/UserRepository.js";
 
 const formatTodo = (todo: Todo) => {
   const copyTodo = { ...todo };

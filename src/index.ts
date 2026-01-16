@@ -1,6 +1,6 @@
 import { config as envConfig } from "dotenv";
-import createApp from "./app";
-import { envSchema } from "./envSchema";
+import createApp from "./app.js";
+import { envSchema } from "./envSchema.js";
 
 envConfig();
 

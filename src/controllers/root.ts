@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { createClient } from "redis";
-import { tasksQueue } from "src/queue/tasksQueue";
-import { getRedisClient } from "src/redisClient";
+import { tasksQueue } from "src/queue/tasksQueue.js";
+import { getRedisClient } from "src/redisClient.js";
 
 const visitsKey = "visits";
 
