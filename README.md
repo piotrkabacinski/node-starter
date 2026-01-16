@@ -27,7 +27,7 @@ docker compose build
 docker compose run --rm app pnpm i
 
 # Create Prisma client:
-docker compose run --rm app pnpx prisma generate
+docker compose run --rm app pnpm run prisma -- generate
 
 # Run migrations:
 docker compose run --rm app pnpm run migration:deploy
