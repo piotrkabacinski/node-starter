@@ -1,4 +1,5 @@
-import { datasourceUrl, prismaQuery } from "./src/db";
+import { datasourceUrl } from "./src/db/datasourceUrl.js";
+import { prismaQuery } from "./src/db";
 import { execSync } from "child_process";
 import { vi, afterEach, afterAll, beforeAll } from "vitest";
 
