@@ -1,5 +1,0 @@
-{
-  "watch": [".tmp/**/*"],
-  "ext": "mjs, js, ts",
-  "exec": "node .tmp/index.js"
-}

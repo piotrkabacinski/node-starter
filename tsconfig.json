@@ -17,9 +17,9 @@
     "paths": {
       "src/*": ["./src/*"],
     },
+    "lib": ["es2019"],
   },
   "lib": ["es2019"],
-  "types": ["@types/node", "./src/types.d.ts"],
   "include": ["./src/**/*", "src/**/*"],
   "exclude": ["node_modules"],
 }

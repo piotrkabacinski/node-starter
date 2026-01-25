@@ -1,8 +1,8 @@
 import createApp from "./app.js";
-import { envSchema } from "./envSchema.js";
+import { EnvSchema } from "./EnvSchema.js";
 
 (async () => {
-  envSchema.parse(process.env);
+  EnvSchema.parse(process.env);
 
   const app = createApp();
   const port = Number(process.env.APP_PORT);

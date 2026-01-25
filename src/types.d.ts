@@ -1,14 +1,9 @@
-declare namespace NodeJS {
-  export interface ProcessEnv {
-    POSTGRES_USER: string;
-    POSTGRES_PASSWORD: string;
-    POSTGRES_DB: string;
-    POSTGRES_HOST: string;
-    NODE_ENV: "development" | "production" | "test";
-    REDIS_HOST: string;
-    REDIS_PORT: string;
-    APP_PORT: string;
-    REDIS_URL?: string;
-    DATABASE_URL?: string;
+import { z } from "zod";
+import { EnvSchema } from "./EnvSchema.js";
+
+declare global {
+  namespace NodeJS {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    interface ProcessEnv extends z.infer<typeof EnvSchema> {}
   }
 }
