@@ -12,6 +12,6 @@ export const EnvSchema = z.object({
   ]),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.string(),
-  APP_PORT: z.coerce.number(),
-  REDIS_URL: z.optional(z.string()),
+  APP_PORT: z.string(),
+  REDIS_URL: z.string().optional(),
 });

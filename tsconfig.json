@@ -19,7 +19,6 @@
     },
     "lib": ["es2019"],
   },
-  "lib": ["es2019"],
   "include": ["./src/**/*", "src/**/*"],
   "exclude": ["node_modules"],
 }
