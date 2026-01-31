@@ -3,6 +3,10 @@ import { resolve } from "path";
 
 export default defineConfig({
   test: {
+    globalSetup: "./src/test/globalSetup.ts",
+    sequence: {
+      hooks: "list",
+    },
     fileParallelism: false,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.ts"],

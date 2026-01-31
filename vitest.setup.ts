@@ -1,9 +1,7 @@
-import { datasourceUrl } from "./src/db/datasourceUrl.js";
 import { prismaQuery } from "./src/db";
-import { execSync } from "child_process";
 import { vi, afterEach, afterAll, beforeAll } from "vitest";
 
-let tables: string[] = [];
+let tables: string[] | undefined = undefined;
 
 vi.mock("src/redisClient", () => ({
   getRedisClient: () => ({
@@ -31,8 +29,12 @@ vi.mock("bullmq", () => {
 });
 
 const clearTestTables = async () => {
+  if (Array.isArray(tables) === false) {
+    return;
+  }
+
   await prismaQuery(async (client) => {
-    for (const table of tables) {
+    for (const table of tables as string[]) {
       // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-data-with-raw-sql--truncate
       await client.$executeRawUnsafe(`TRUNCATE TABLE "${table}" CASCADE;`);
     }
@@ -40,7 +42,9 @@ const clearTestTables = async () => {
 };
 
 beforeAll(async () => {
-  execSync(`DATABASE_URL=${datasourceUrl} prisma migrate dev --name test`);
+  if (Array.isArray(tables)) {
+    return;
+  }
 
   await prismaQuery(async (client) => {
     const tableNames: Array<{ table_name: string }> =
@@ -61,11 +65,5 @@ afterEach(async () => {
 });
 
 afterAll(() => {
-  // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-records-with-prisma-migrate
-  execSync(
-    `DATABASE_URL=${datasourceUrl} prisma migrate reset \
-    --force`,
-  );
-
   vi.resetAllMocks();
 });
