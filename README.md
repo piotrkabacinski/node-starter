@@ -83,3 +83,15 @@ docker exec -it <container name prefix>_redis_1 redis-cli
 ## Insomnia
 
 For manual tests of Todo API example you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
+
+## Deployment
+
+When running build command don't forget to generate prisma files first and then actuall build command:
+
+```sh
+pnpm install --frozen-lockfile && \
+pnpm run prisma -- generate && pnpm run migration:deploy && \ 
+pnpm run build
+```
+
+Project setup is fully compatibile with [render.com](https://render.com/) hosting service.
