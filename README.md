@@ -83,7 +83,3 @@ docker exec -it <container name prefix>_redis_1 redis-cli
 ## Insomnia
 
 For manual tests of Todo API example you can import [Insomnia](https://insomnia.rest/) workspace from `insomnia.json`.
-
-## Deployment
-
-App is configured for [Heroku](https://www.heroku.com/) environment. See [Heroku.md](Heroku.md) file for deployment details.

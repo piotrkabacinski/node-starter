@@ -6,15 +6,14 @@ import rootRouter from "./routes/root.js";
 import usersRouter from "./routes/users.js";
 import { getDirPath } from "./utils/getDirPath.js";
 
-const srcPath = `${getDirPath(import.meta.url)}/../src`;
-
 const { NODE_ENV: env } = process.env;
 const isTest = env === "test";
+const dirPath = getDirPath(import.meta.url);
 
 export default () => {
   const app = express();
 
-  app.use("/static", express.static(`${srcPath}/static`));
+  app.use("/static", express.static(`${dirPath}/static`));
 
   app.use(cookieParser());
 
@@ -30,7 +29,7 @@ export default () => {
 
   app.use(
     middleware({
-      apiSpec: `${srcPath}/openapi.yaml`,
+      apiSpec: `${dirPath}/openapi.yaml`,
       validateRequests: true,
       validateResponses: isTest,
     }),
