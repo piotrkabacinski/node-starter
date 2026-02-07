@@ -29,15 +29,17 @@ vi.mock("bullmq", () => {
 });
 
 const clearTestTables = async () => {
-  if (Array.isArray(tables) === false) {
-    return;
-  }
-
   await prismaQuery(async (client) => {
-    for (const table of tables as string[]) {
-      // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-data-with-raw-sql--truncate
-      await client.$executeRawUnsafe(`TRUNCATE TABLE "${table}" CASCADE;`);
+    if (Array.isArray(tables) === false) {
+      return;
     }
+
+    // https://www.prisma.io/docs/orm/prisma-client/queries/crud#deleting-all-data-with-raw-sql--truncate
+    await Promise.all(
+      tables.map((table) =>
+        client.$executeRawUnsafe(`TRUNCATE TABLE "${table}" CASCADE;`),
+      ),
+    );
   });
 };
 
